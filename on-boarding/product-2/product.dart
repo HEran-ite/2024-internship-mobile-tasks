@@ -15,9 +15,9 @@ class Product {
 
 class Products {
   List<Product> products = [
-    Product('Dress', 'Summer dress', 100),
-    Product('Bag', 'GUCCI bag', 200),
-    Product('Shoe', 'Sandals', 300),
+    Product('dress', 'summer dress', 100),
+    Product('bag', 'gucci bag', 200),
+    Product('shoe', 'sandals', 300),
   ];
 }
 
@@ -46,7 +46,6 @@ class ProductManager {
   }
 
   void updateProduct(Product product) {
-
     for (var i = 0; i < productLists.products.length; i++) {
       if (productLists.products[i].name == product.name) {
         productLists.products[i] = product;
@@ -83,17 +82,17 @@ void main() {
                   1  to add product
                   2  to delete 
                   3  to update
-                  4  to view all products
-                  5  to view one product 
+                  4  to view one product
+                  5  to view all products 
                   6  to exit''');
     print('Enter number:');
     String? service = stdin.readLineSync();
     if (service == "1") {
       print('Enter product name to add:\n');
-      String? name = stdin.readLineSync();
+      String? name = stdin.readLineSync()?.toLowerCase();
 
       print('Enter product description to add:\n');
-      String? description = stdin.readLineSync();
+      String? description = stdin.readLineSync()?.toLowerCase();
 
       print('Enter product price to add:\n');
       int? price = int.tryParse(stdin.readLineSync()!);
@@ -105,7 +104,7 @@ void main() {
       }
     } else if (service == "2") {
       print('Enter product name to delete:\n');
-      String? name = stdin.readLineSync();
+      String? name = stdin.readLineSync()?.toLowerCase();
 
       if (name != null) {
         productManager.deleteProduct(name);
@@ -114,10 +113,10 @@ void main() {
       }
     } else if (service == "3") {
       print('Enter product name to be updated:\n');
-      String? name = stdin.readLineSync();
+      String? name = stdin.readLineSync()?.toLowerCase();
 
       print('Enter product description to be updated:\n');
-      String? description = stdin.readLineSync();
+      String? description = stdin.readLineSync()?.toLowerCase();
 
       print('Enter product price to be updated:\n');
       int? price = int.tryParse(stdin.readLineSync()!);
@@ -128,17 +127,17 @@ void main() {
         print('Invalid input');
       }
     } else if (service == '4') {
-      print('List of Products:\n');
-      productManager.viewAllProducts();
-    } else if (service == '5') {
       print('Enter product name to view:\n');
-      String? name = stdin.readLineSync();
+      String? name = stdin.readLineSync()?.toLowerCase();
 
       if (name != null) {
         productManager.viewOneProduct(name);
       } else {
         print('Invalid input');
       }
+    } else if (service == '5') {
+      print('List of Products:\n');
+      productManager.viewAllProducts();
     } else if (service == '6') {
       break;
     } else {
