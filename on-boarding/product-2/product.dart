@@ -1,9 +1,19 @@
 import 'dart:io';
 
 class Product {
-  String? name;
-  String? description;
-  int? price;
+  String name;
+  String description;
+  int price;
+
+  Product get getProduct {
+    return this;
+  }
+
+  setProduct(Product product) {
+    this.name = product.name;
+    this.description = product.description;
+    this.price = product.price;
+  }
 
   Product(this.name, this.description, this.price);
 
@@ -48,7 +58,11 @@ class ProductManager {
   void updateProduct(Product product) {
     for (var i = 0; i < productLists.products.length; i++) {
       if (productLists.products[i].name == product.name) {
-        productLists.products[i] = product;
+        Product(
+                productLists.products[i].name,
+                productLists.products[i].description,
+                productLists.products[i].price)
+            .setProduct(product);
         print('Product updated: ${product}');
       }
     }
@@ -56,14 +70,14 @@ class ProductManager {
 
   void viewAllProducts() {
     for (var product in productLists.products) {
-      print('Product: ${product}');
+      print(product.getProduct);
     }
   }
 
   void viewOneProduct(String name) {
     for (var product in productLists.products) {
       if (product.name == name) {
-        print('Product: $product');
+        print(product.getProduct);
         return;
       }
     }
@@ -86,16 +100,16 @@ void main() {
                   5  to view all products 
                   6  to exit''');
     print('Enter number:');
-    String? service = stdin.readLineSync();
+    var service = stdin.readLineSync();
     if (service == "1") {
       print('Enter product name to add:\n');
-      String? name = stdin.readLineSync()?.toLowerCase();
+      var name = stdin.readLineSync()?.toLowerCase();
 
       print('Enter product description to add:\n');
-      String? description = stdin.readLineSync()?.toLowerCase();
+      var description = stdin.readLineSync()?.toLowerCase();
 
       print('Enter product price to add:\n');
-      int? price = int.tryParse(stdin.readLineSync()!);
+      var price = int.tryParse(stdin.readLineSync()!);
 
       if (name != null && description != null && price != null) {
         productManager.addProduct(Product(name, description, price));
@@ -104,7 +118,7 @@ void main() {
       }
     } else if (service == "2") {
       print('Enter product name to delete:\n');
-      String? name = stdin.readLineSync()?.toLowerCase();
+      var name = stdin.readLineSync()?.toLowerCase();
 
       if (name != null) {
         productManager.deleteProduct(name);
@@ -113,13 +127,13 @@ void main() {
       }
     } else if (service == "3") {
       print('Enter product name to be updated:\n');
-      String? name = stdin.readLineSync()?.toLowerCase();
+      var name = stdin.readLineSync()?.toLowerCase();
 
       print('Enter product description to be updated:\n');
-      String? description = stdin.readLineSync()?.toLowerCase();
+      var description = stdin.readLineSync()?.toLowerCase();
 
       print('Enter product price to be updated:\n');
-      int? price = int.tryParse(stdin.readLineSync()!);
+      var price = int.tryParse(stdin.readLineSync()!);
 
       if (name != null && description != null && price != null) {
         productManager.updateProduct(Product(name, description, price));
@@ -128,7 +142,7 @@ void main() {
       }
     } else if (service == '4') {
       print('Enter product name to view:\n');
-      String? name = stdin.readLineSync()?.toLowerCase();
+      var name = stdin.readLineSync()?.toLowerCase();
 
       if (name != null) {
         productManager.viewOneProduct(name);
