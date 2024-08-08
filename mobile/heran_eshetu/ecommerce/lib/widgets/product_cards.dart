@@ -15,6 +15,8 @@ class ProductCard extends StatelessWidget {
 List<Card> _buildCards(BuildContext context) {
   return Products.map((product) {
     return Card(
+      shadowColor: Colors.black,
+      elevation: 5,
       child: GestureDetector(
         onTap: () {
           Navigator.pushNamed(context, '/product_detail_page');
@@ -25,7 +27,7 @@ List<Card> _buildCards(BuildContext context) {
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10), topRight: Radius.circular(10)),
               child: AspectRatio(
-                aspectRatio: 16 / 8,
+                aspectRatio: 16 / 9,
                 child: Image.asset(
                   product.imageUrl,
                   fit: BoxFit.fill,
