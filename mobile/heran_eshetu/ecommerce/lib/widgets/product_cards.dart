@@ -1,8 +1,11 @@
 import 'package:ecommerce/dummy_data/products_data.dart';
+import 'package:ecommerce/screens/product_detail_page.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({Key? key}) : super(key: key);
+  const ProductCard({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,14 @@ List<Card> _buildCards(BuildContext context) {
       elevation: 5,
       child: GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, '/product_detail_page');
+          Navigator.pushNamed(
+            context,
+            '/product_detail_page',
+            arguments: {
+              'product': product,
+              'products': Products,
+            },
+          );
         },
         child: Column(
           children: [
@@ -55,7 +65,7 @@ List<Card> _buildCards(BuildContext context) {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        product.description,
+                        product.category,
                         style: TextStyle(fontSize: 10, color: Colors.grey),
                       ),
                       Row(

@@ -1,12 +1,30 @@
+import 'dart:io';
+import 'package:ecommerce/entitity/product.dart';
 import 'package:ecommerce/widgets/app_bar.dart';
 import 'package:ecommerce/widgets/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
-class AddProductPage extends StatelessWidget {
+class AddProductPage extends StatefulWidget {
   const AddProductPage({super.key});
 
   @override
+  State<AddProductPage> createState() => _AddProductPageState();
+}
+
+class _AddProductPageState extends State<AddProductPage> {
+  @override
   Widget build(BuildContext context) {
+    // final Map arguments = ModalRoute.of(context)?.settings?.arguments as Map;
+    // final List<Product> products = arguments['products'];
+    final product = Product(
+        name: '',
+        description: '',
+        price: 0,
+        imageUrl: '',
+        rating: '',
+        category: '',
+        size: []);
     return Scaffold(
         appBar: MyAppBar(
           title: 'Add Product',
@@ -15,24 +33,35 @@ class AddProductPage extends StatelessWidget {
           padding: EdgeInsets.all(20),
           child: Column(
             children: [
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 65),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Color.fromARGB(155, 232, 229, 229),
-                ),
-                child: Center(
-                  child: Column(
-                    children: [
-                      Icon(
-                        Icons.image,
-                        size: 50,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text('Upload Image'),
-                    ],
+              GestureDetector(
+                onTap: () async {
+                  final ImagePicker _picker = ImagePicker();
+                  final XFile? image = await _picker.pickImage(
+                    source: ImageSource.gallery,
+                  );
+                  if (image != null) {
+                    File file = File(image.path);
+                  }
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 65),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Color.fromARGB(155, 232, 229, 229),
+                  ),
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.image,
+                          size: 50,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text('Upload Image'),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -80,6 +109,9 @@ class AddProductPage extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),

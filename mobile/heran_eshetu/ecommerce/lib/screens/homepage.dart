@@ -1,3 +1,4 @@
+import 'package:ecommerce/dummy_data/products_data.dart';
 import 'package:ecommerce/widgets/product_cards.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
+  
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -107,7 +109,8 @@ class _HomePageState extends State<HomePage> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/add_product_page');
+            Navigator.pushNamed(context, '/add_product_page',
+            arguments: {'products': Products});
           },
           child: const Icon(
             Icons.add,

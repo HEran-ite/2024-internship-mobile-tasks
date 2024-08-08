@@ -1,11 +1,18 @@
+import 'package:ecommerce/dummy_data/products_data.dart';
+import 'package:ecommerce/entitity/product.dart';
 import 'package:ecommerce/widgets/size_container.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailPage extends StatelessWidget {
-  const ProductDetailPage({super.key});
+  const ProductDetailPage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final Map arguments = ModalRoute.of(context)?.settings?.arguments as Map;
+    final Product product = arguments['product'];
+    final List<Product> products = arguments['products'];
     return Scaffold(
       body: Container(
         child: Column(
@@ -14,7 +21,7 @@ class ProductDetailPage extends StatelessWidget {
               AspectRatio(
                 aspectRatio: 16 / 12,
                 child: Image.asset(
-                  'images/nike.jpg',
+                  product.imageUrl,
                   fit: BoxFit.fill,
                 ),
               ),
@@ -48,7 +55,7 @@ class ProductDetailPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Men\'s shoe',
+                        product.category,
                         style: TextStyle(fontSize: 12, color: Colors.grey),
                       ),
                       Row(
@@ -59,7 +66,7 @@ class ProductDetailPage extends StatelessWidget {
                             color: Color.fromARGB(255, 246, 186, 45),
                           ),
                           Text(
-                            '(4.0)',
+                            product.rating,
                             style: TextStyle(fontSize: 12, color: Colors.grey),
                           ),
                         ],
@@ -73,11 +80,11 @@ class ProductDetailPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Nike Air Max 270',
+                        product.name,
                         style: TextStyle(
                             fontSize: 25, fontWeight: FontWeight.w600),
                       ),
-                      Text("\$ 100"),
+                      Text(product.price.toString()),
                     ],
                   ),
                   SizedBox(
@@ -121,7 +128,15 @@ class ProductDetailPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          for (Product pro in Products) {
+                            if (product.name == pro.name) {
+                              products.remove(product);
+                              break;
+                            }
+                          }
+                          Navigator.pushNamed(context, '/homepage');
+                        },
                         child: Text('DELETE',
                             style: TextStyle(
                               color: Colors.red,
@@ -137,7 +152,9 @@ class ProductDetailPage extends StatelessWidget {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/add_product_page');
+                        },
                         child: Text('UPDATE',
                             style: TextStyle(color: Colors.white)),
                         style: ButtonStyle(
