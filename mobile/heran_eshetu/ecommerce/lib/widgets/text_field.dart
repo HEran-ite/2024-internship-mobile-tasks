@@ -25,21 +25,23 @@ class MyTextField extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
           SizedBox(
-            height: 10,
+            height: 5,
           ),
           TextField(
+            maxLines: lines,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderSide: BorderSide.none,
               ),
-              hintMaxLines: lines,
+              // hintMaxLines: lines,
+
               suffixIcon: suff_icon,
               filled: true,
               fillColor: Color.fromARGB(155, 232, 229, 229),
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 5,
           ),
         ],
       ),

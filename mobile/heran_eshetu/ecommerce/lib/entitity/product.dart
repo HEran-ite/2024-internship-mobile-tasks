@@ -3,7 +3,7 @@ class Product {
   final String description;
   final double price;
   final String imageUrl;
-  final double rating;
+  final String rating;
 
   Product(
       {required this.name,

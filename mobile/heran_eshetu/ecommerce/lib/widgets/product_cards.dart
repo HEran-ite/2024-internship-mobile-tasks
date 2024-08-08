@@ -66,7 +66,7 @@ List<Card> _buildCards(BuildContext context) {
                             color: Color.fromARGB(255, 246, 186, 45),
                           ),
                           Text(
-                            '(${product.rating.toString()})',
+                            '(${product.rating})',
                             style: TextStyle(fontSize: 10, color: Colors.grey),
                           ),
                         ],

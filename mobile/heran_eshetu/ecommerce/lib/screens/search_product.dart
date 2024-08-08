@@ -1,3 +1,4 @@
+import 'package:ecommerce/widgets/app_bar.dart';
 import 'package:ecommerce/widgets/product_cards.dart';
 import 'package:ecommerce/widgets/text_field.dart';
 import 'package:flutter/material.dart';
@@ -16,17 +17,8 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: Color.fromARGB(255, 17, 17, 183),
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: Text('Search Product'),
+      appBar: MyAppBar(
+        title: 'Add Product',
       ),
       body: Container(
         padding: EdgeInsets.all(20),

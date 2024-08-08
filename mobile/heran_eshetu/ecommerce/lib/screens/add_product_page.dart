@@ -1,3 +1,4 @@
+import 'package:ecommerce/widgets/app_bar.dart';
 import 'package:ecommerce/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -7,24 +8,15 @@ class AddProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: Color.fromARGB(255, 17, 17, 183),
-            ),
-          ),
-          title: Text('Add Product'),
+        appBar: MyAppBar(
+          title: 'Add Product',
         ),
         body: Container(
-          padding: EdgeInsets.all(30),
+          padding: EdgeInsets.all(20),
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(vertical: 80),
+                padding: EdgeInsets.symmetric(vertical: 65),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Color.fromARGB(155, 232, 229, 229),
@@ -65,10 +57,10 @@ class AddProductPage extends StatelessWidget {
               ),
               MyTextField(
                 lable: 'description',
-                lines: 10,
+                lines: 5,
               ),
               Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   GestureDetector(
