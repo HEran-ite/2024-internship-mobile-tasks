@@ -5,11 +5,13 @@ class MyTextField extends StatelessWidget {
   final String lable;
   final suff_icon;
   final int lines;
+  final TextEditingController controller ;
   MyTextField({
     super.key,
     required this.lable,
     required this.lines,
     this.suff_icon,
+    required this.controller,
   });
 
   @override
@@ -29,11 +31,12 @@ class MyTextField extends StatelessWidget {
           ),
           TextField(
             maxLines: lines,
+            controller: controller,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderSide: BorderSide.none,
               ),
-              // hintMaxLines: lines,
+            
 
               suffixIcon: suff_icon,
               filled: true,

@@ -3,16 +3,24 @@ import 'package:ecommerce/entitity/product.dart';
 import 'package:ecommerce/widgets/size_container.dart';
 import 'package:flutter/material.dart';
 
-class ProductDetailPage extends StatelessWidget {
+class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({
     super.key,
   });
 
   @override
+  State<ProductDetailPage> createState() => _ProductDetailPageState();
+}
+
+class _ProductDetailPageState extends State<ProductDetailPage> {
+  int? selectedSize;
+  @override
   Widget build(BuildContext context) {
-    final Map arguments = ModalRoute.of(context)?.settings?.arguments as Map;
+    final Map arguments =
+        (ModalRoute.of(context)?.settings?.arguments as Map?) ?? {};
     final Product product = arguments['product'];
     final List<Product> products = arguments['products'];
+    selectedSize ??= product.size[0];
     return Scaffold(
       body: Container(
         child: Column(
@@ -105,11 +113,16 @@ class ProductDetailPage extends StatelessWidget {
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(children: [
-                      SizeContainer(size: 39),
-                      SizeContainer(size: 40),
-                      SizeContainer(size: 41),
-                      SizeContainer(size: 42),
-                      SizeContainer(size: 43),
+                      for (var sz in product.size)
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              selectedSize = sz;
+                            });
+                          },
+                          child: SizeContainer(
+                              size: sz, isSelected: selectedSize == sz),
+                        )
                     ]),
                   ),
                   SizedBox(
@@ -118,7 +131,8 @@ class ProductDetailPage extends StatelessWidget {
                   Container(
                       padding: EdgeInsets.only(bottom: 50),
                       child: Text(
-                        'Lorem ipsum dolor sit amet  derby leather shoe is a classic and versatile footwear option characterized by its open lacing system, where the shoelace eyelets are sewn on top of the vamp (the upper part of the shoe). This design feature provides a more relaxed and casual look compared to the closed lacing system of oxford shoes. Derby shoes are typically made of high-quality leather, known for its durability and elegance, making them suitable for both formal and casual occasions. With their timeless style and comfortable fit, derby leather shoes are a staple in any well-rounded wardrobe.',
+                        product.description,
+                        style: TextStyle(fontSize: 15),
                       )),
                   SizedBox(
                     height: 10,
@@ -153,7 +167,11 @@ class ProductDetailPage extends StatelessWidget {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, '/add_product_page');
+                          Navigator.pushNamed(context, '/add_product_page',
+                              arguments: {
+                                'product': product,
+                                'products': products,
+                              });
                         },
                         child: Text('UPDATE',
                             style: TextStyle(color: Colors.white)),

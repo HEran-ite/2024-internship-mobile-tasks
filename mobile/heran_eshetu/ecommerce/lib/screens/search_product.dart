@@ -1,7 +1,10 @@
+
+
 import 'package:ecommerce/widgets/app_bar.dart';
 import 'package:ecommerce/widgets/product_cards.dart';
 import 'package:ecommerce/widgets/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({
@@ -80,6 +83,7 @@ class _SearchPageState extends State<SearchPage> {
                         child: Column(
                           children: [
                             MyTextField(
+                              controller: TextEditingController(),
                               lable: 'Category',
                               lines: 1,
                               suff_icon: Icon(

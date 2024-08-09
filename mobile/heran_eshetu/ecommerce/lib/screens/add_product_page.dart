@@ -15,16 +15,24 @@ class AddProductPage extends StatefulWidget {
 class _AddProductPageState extends State<AddProductPage> {
   @override
   Widget build(BuildContext context) {
-    // final Map arguments = ModalRoute.of(context)?.settings?.arguments as Map;
-    // final List<Product> products = arguments['products'];
-    final product = Product(
-        name: '',
-        description: '',
-        price: 0,
-        imageUrl: '',
-        rating: '',
-        category: '',
-        size: []);
+    final Map arguments =
+        (ModalRoute.of(context)?.settings?.arguments as Map?) ?? {};
+    final Product? product = arguments['product'];
+    final List<Product>? products = arguments['products'];
+
+    TextEditingController nameController =
+        TextEditingController(text: product?.name ?? '');
+    TextEditingController categoryController =
+        TextEditingController(text: product?.category ?? '');
+    TextEditingController priceController =
+        TextEditingController(text: product?.price.toString() ?? '');
+    TextEditingController descriptionController =
+        TextEditingController(text: product?.description ?? '');
+
+    if (product != null) {
+      File image = File(product.imageUrl);
+    }
+
     return Scaffold(
         appBar: MyAppBar(
           title: 'Add Product',
@@ -43,40 +51,51 @@ class _AddProductPageState extends State<AddProductPage> {
                     File file = File(image.path);
                   }
                 },
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 65),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color.fromARGB(155, 232, 229, 229),
-                  ),
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.image,
-                          size: 50,
+                child: product?.imageUrl != null
+                    ? AspectRatio(
+                        aspectRatio: 16 / 7,
+                        child: Image.asset(
+                          product?.imageUrl ?? '',
+                          fit: BoxFit.fill,
                         ),
-                        SizedBox(
-                          height: 20,
+                      )
+                    : Container(
+                        padding: EdgeInsets.symmetric(vertical: 65),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color.fromARGB(155, 232, 229, 229),
                         ),
-                        Text('Upload Image'),
-                      ],
-                    ),
-                  ),
-                ),
+                        child: Center(
+                          child: Column(
+                            children: [
+                              Icon(
+                                Icons.image,
+                                size: 50,
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Text('Upload Image'),
+                            ],
+                          ),
+                        ),
+                      ),
               ),
               SizedBox(
                 height: 20,
               ),
               MyTextField(
+                controller: nameController,
                 lable: 'name',
                 lines: 1,
               ),
               MyTextField(
+                controller: categoryController,
                 lable: 'category',
                 lines: 1,
               ),
               MyTextField(
+                controller: priceController,
                 lable: 'price',
                 lines: 1,
                 suff_icon: Icon(
@@ -85,6 +104,7 @@ class _AddProductPageState extends State<AddProductPage> {
                 ),
               ),
               MyTextField(
+                controller: descriptionController,
                 lable: 'description',
                 lines: 5,
               ),
