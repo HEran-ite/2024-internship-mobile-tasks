@@ -1,5 +1,3 @@
-
-
 import 'package:ecommerce/widgets/app_bar.dart';
 import 'package:ecommerce/widgets/product_cards.dart';
 import 'package:ecommerce/widgets/text_field.dart';
@@ -17,6 +15,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   bool isFilter = false;
+  RangeValues _values = RangeValues(20, 80);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,8 +98,12 @@ class _SearchPageState extends State<SearchPage> {
                                   style: TextStyle(fontSize: 16),
                                 ),
                                 RangeSlider(
-                                  values: RangeValues(1, 100),
-                                  onChanged: (RangeValues values) {},
+                                  values: _values,
+                                  onChanged: (RangeValues values) {
+                                    setState(() {
+                                      _values = values;
+                                    });
+                                  },
                                   min: 1,
                                   max: 100,
                                   divisions: 100,
