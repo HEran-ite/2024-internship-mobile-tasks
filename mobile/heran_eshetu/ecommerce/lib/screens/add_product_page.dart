@@ -1,9 +1,8 @@
-import 'dart:io';
-import 'package:ecommerce/entitity/product.dart';
-import 'package:ecommerce/widgets/app_bar.dart';
-import 'package:ecommerce/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import '../entitity/product.dart';
+import '../widgets/app_bar.dart';
+import '../widgets/text_field.dart';
 
 class AddProductPage extends StatefulWidget {
   const AddProductPage({super.key});
@@ -16,9 +15,8 @@ class _AddProductPageState extends State<AddProductPage> {
   @override
   Widget build(BuildContext context) {
     final Map arguments =
-        (ModalRoute.of(context)?.settings?.arguments as Map?) ?? {};
+        (ModalRoute.of(context)?.settings.arguments as Map?) ?? {};
     final Product? product = arguments['product'];
-    final List<Product>? products = arguments['products'];
 
     TextEditingController nameController =
         TextEditingController(text: product?.name ?? '');
@@ -28,44 +26,42 @@ class _AddProductPageState extends State<AddProductPage> {
         TextEditingController(text: product?.price.toString() ?? '');
     TextEditingController descriptionController =
         TextEditingController(text: product?.description ?? '');
-
-    if (product != null) {
-      File image = File(product.imageUrl);
-    }
+    String? file = product?.imageUrl;
 
     return Scaffold(
-        appBar: MyAppBar(
+        appBar: const MyAppBar(
           title: 'Add Product',
         ),
         body: Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
               GestureDetector(
                 onTap: () async {
+                  // ignore: no_leading_underscores_for_local_identifiers
                   final ImagePicker _picker = ImagePicker();
                   final XFile? image = await _picker.pickImage(
                     source: ImageSource.gallery,
                   );
                   if (image != null) {
-                    File file = File(image.path);
+                    file = image.path;
                   }
                 },
                 child: product?.imageUrl != null
                     ? AspectRatio(
                         aspectRatio: 16 / 7,
                         child: Image.asset(
-                          product?.imageUrl ?? '',
+                          file ?? '',
                           fit: BoxFit.fill,
                         ),
                       )
                     : Container(
-                        padding: EdgeInsets.symmetric(vertical: 65),
+                        padding: const EdgeInsets.symmetric(vertical: 65),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Color.fromARGB(155, 232, 229, 229),
+                          color: const Color.fromARGB(155, 232, 229, 229),
                         ),
-                        child: Center(
+                        child: const Center(
                           child: Column(
                             children: [
                               Icon(
@@ -81,7 +77,7 @@ class _AddProductPageState extends State<AddProductPage> {
                         ),
                       ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               MyTextField(
@@ -98,7 +94,7 @@ class _AddProductPageState extends State<AddProductPage> {
                 controller: priceController,
                 lable: 'price',
                 lines: 1,
-                suff_icon: Icon(
+                suffIcon: const Icon(
                   Icons.attach_money,
                   color: Colors.black,
                 ),
@@ -116,12 +112,12 @@ class _AddProductPageState extends State<AddProductPage> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Color.fromARGB(255, 32, 77, 202),
+                        color: const Color.fromARGB(255, 32, 77, 202),
                       ),
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       width: double.infinity,
-                      margin: EdgeInsets.only(top: 40, bottom: 10),
-                      child: Text(
+                      margin: const EdgeInsets.only(top: 40, bottom: 10),
+                      child: const Text(
                         'ADD',
                         style: TextStyle(color: Colors.white),
                         textAlign: TextAlign.center,
@@ -139,10 +135,10 @@ class _AddProductPageState extends State<AddProductPage> {
                           color: Colors.red,
                         ),
                       ),
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       width: double.infinity,
-                      margin: EdgeInsets.only(top: 10, bottom: 40),
-                      child: Text(
+                      margin: const EdgeInsets.only(top: 10, bottom: 40),
+                      child: const Text(
                         'DELETE',
                         style: TextStyle(color: Colors.red),
                         textAlign: TextAlign.center,

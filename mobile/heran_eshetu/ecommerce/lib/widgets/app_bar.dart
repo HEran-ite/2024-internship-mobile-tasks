@@ -11,15 +11,15 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         onPressed: () {
           Navigator.pop(context);
         },
-        icon: Icon(
+        icon: const Icon(
           Icons.arrow_back_ios,
           color: Color.fromARGB(255, 17, 17, 183),
         ),
       ),
-      title: Text('Add Product'),
+      title: const Text('Add Product'),
     );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

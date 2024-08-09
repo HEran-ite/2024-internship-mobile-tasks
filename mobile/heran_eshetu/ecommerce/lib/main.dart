@@ -1,8 +1,9 @@
-import 'package:ecommerce/screens/add_product_page.dart';
-import 'package:ecommerce/screens/homepage.dart';
-import 'package:ecommerce/screens/product_detail_page.dart';
-import 'package:ecommerce/screens/search_product.dart';
 import 'package:flutter/material.dart';
+
+import 'screens/add_product_page.dart';
+import 'screens/homepage.dart';
+import 'screens/product_detail_page.dart';
+import 'screens/search_product.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,9 +19,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 35, 51, 203)),
+            ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 35, 51, 203)),
         useMaterial3: true,
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
           bodyLarge: TextStyle(fontFamily: 'Poppins'),
           bodyMedium: TextStyle(fontFamily: 'Poppins'),
           bodySmall: TextStyle(fontFamily: 'Poppins'),

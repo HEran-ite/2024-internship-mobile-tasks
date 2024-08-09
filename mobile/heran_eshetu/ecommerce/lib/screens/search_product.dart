@@ -1,8 +1,8 @@
-import 'package:ecommerce/widgets/app_bar.dart';
-import 'package:ecommerce/widgets/product_cards.dart';
-import 'package:ecommerce/widgets/text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
+import '../widgets/app_bar.dart';
+import '../widgets/product_cards.dart';
+import '../widgets/text_field.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({
@@ -15,23 +15,23 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   bool isFilter = false;
-  RangeValues _values = RangeValues(20, 80);
+  RangeValues _values = const RangeValues(20, 80);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(
+      appBar: const MyAppBar(
         title: 'Add Product',
       ),
       body: Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: TextField(
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -43,14 +43,14 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(5),
-                  margin: EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.all(5),
+                  margin: const EdgeInsets.only(left: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Color.fromARGB(255, 32, 77, 202),
+                    color: const Color.fromARGB(255, 32, 77, 202),
                   ),
                   child: IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.filter_list,
                       color: Colors.white,
                     ),
@@ -63,12 +63,12 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Expanded(
               child: Stack(children: [
-                ProductCard(),
+                const ProductCard(),
                 if (isFilter)
                   Expanded(
                     child: Positioned(
@@ -77,7 +77,7 @@ class _SearchPageState extends State<SearchPage> {
                       right: 0,
                       top: 450,
                       child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 20),
+                        padding: const EdgeInsets.symmetric(vertical: 20),
                         color: Colors.white,
                         child: Column(
                           children: [
@@ -85,7 +85,7 @@ class _SearchPageState extends State<SearchPage> {
                               controller: TextEditingController(),
                               lable: 'Category',
                               lines: 1,
-                              suff_icon: Icon(
+                              suffIcon: const Icon(
                                 Icons.arrow_drop_down,
                                 color: Colors.white,
                               ),
@@ -93,7 +93,7 @@ class _SearchPageState extends State<SearchPage> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                const Text(
                                   'Price',
                                   style: TextStyle(fontSize: 16),
                                 ),
@@ -114,12 +114,12 @@ class _SearchPageState extends State<SearchPage> {
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color: Color.fromARGB(255, 32, 77, 202),
+                                  color: const Color.fromARGB(255, 32, 77, 202),
                                 ),
-                                padding: EdgeInsets.all(15),
+                                padding: const EdgeInsets.all(15),
                                 width: double.infinity,
-                                margin: EdgeInsets.only(top: 40, bottom: 10),
-                                child: Text(
+                                margin: const EdgeInsets.only(top: 40, bottom: 10),
+                                child: const Text(
                                   'APPLY',
                                   style: TextStyle(color: Colors.white),
                                   textAlign: TextAlign.center,

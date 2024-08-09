@@ -1,12 +1,10 @@
-import 'package:ecommerce/dummy_data/products_data.dart';
-import 'package:ecommerce/widgets/product_cards.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
+
+import '../dummy_data/products_data.dart';
+import '../widgets/product_cards.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
-  
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -37,10 +35,10 @@ class _HomePageState extends State<HomePage> {
                             color: Colors.grey,
                           )),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
-                    Column(
+                    const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
@@ -72,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                       icon: const Icon(Icons.notifications_outlined)),
                 )
               ]),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Row(
@@ -98,10 +96,10 @@ class _HomePageState extends State<HomePage> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Expanded(
+              const Expanded(
                 child: ProductCard(),
               )
             ],
@@ -110,15 +108,15 @@ class _HomePageState extends State<HomePage> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.pushNamed(context, '/add_product_page',
-            arguments: {'products': Products});
+                arguments: {'products': Products});
           },
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          backgroundColor: const Color.fromARGB(255, 33, 75, 243),
           child: const Icon(
             Icons.add,
             color: Colors.white,
           ),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-          backgroundColor: const Color.fromARGB(255, 33, 75, 243),
         ));
   }
 }

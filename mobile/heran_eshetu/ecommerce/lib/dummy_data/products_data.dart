@@ -1,5 +1,6 @@
-import 'package:ecommerce/entitity/product.dart';
+import '../entitity/product.dart';
 
+// ignore: non_constant_identifier_names
 List<Product> Products = [
   Product(
       name: 'Nike Air Max 270',

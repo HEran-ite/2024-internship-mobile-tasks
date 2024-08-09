@@ -1,11 +1,10 @@
-import 'package:ecommerce/dummy_data/products_data.dart';
-import 'package:ecommerce/screens/product_detail_page.dart';
 import 'package:flutter/material.dart';
+import '../dummy_data/products_data.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,7 @@ List<Card> _buildCards(BuildContext context) {
         child: Column(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10), topRight: Radius.circular(10)),
               child: AspectRatio(
                 aspectRatio: 16 / 9,
@@ -45,20 +44,20 @@ List<Card> _buildCards(BuildContext context) {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(product.name,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 20,
                           )),
-                      Text("\$ ${product.price.toString()}"),
+                      Text('\$ ${product.price.toString()}'),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
@@ -66,18 +65,20 @@ List<Card> _buildCards(BuildContext context) {
                     children: [
                       Text(
                         product.category,
-                        style: TextStyle(fontSize: 10, color: Colors.grey),
+                        style:
+                            const TextStyle(fontSize: 10, color: Colors.grey),
                       ),
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.star,
                             size: 14,
                             color: Color.fromARGB(255, 246, 186, 45),
                           ),
                           Text(
                             '(${product.rating})',
-                            style: TextStyle(fontSize: 10, color: Colors.grey),
+                            style: const TextStyle(
+                                fontSize: 10, color: Colors.grey),
                           ),
                         ],
                       ),
