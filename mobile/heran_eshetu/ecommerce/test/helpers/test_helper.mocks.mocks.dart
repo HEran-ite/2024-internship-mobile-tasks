@@ -62,35 +62,54 @@ class MockProductRepository extends _i1.Mock implements _i3.ProductRepository {
       ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Product>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.Product>> insertProduct(int? id) =>
+  _i4.Future<_i2.Either<_i5.Failure, _i6.Product>> getAllProduct() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getAllProduct,
+          [],
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.Product>>.value(
+            _FakeEither_0<_i5.Failure, _i6.Product>(
+          this,
+          Invocation.method(
+            #getAllProduct,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Product>>);
+
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, _i6.Product>> insertProduct(
+          _i6.Product? product) =>
       (super.noSuchMethod(
         Invocation.method(
           #insertProduct,
-          [id],
+          [product],
         ),
         returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.Product>>.value(
             _FakeEither_0<_i5.Failure, _i6.Product>(
           this,
           Invocation.method(
             #insertProduct,
-            [id],
+            [product],
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Product>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.Product>> updateProduct(int? id) =>
+  _i4.Future<_i2.Either<_i5.Failure, _i6.Product>> updateProduct(
+          _i6.Product? product) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateProduct,
-          [id],
+          [product],
         ),
         returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.Product>>.value(
             _FakeEither_0<_i5.Failure, _i6.Product>(
           this,
           Invocation.method(
             #updateProduct,
-            [id],
+            [product],
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Product>>);

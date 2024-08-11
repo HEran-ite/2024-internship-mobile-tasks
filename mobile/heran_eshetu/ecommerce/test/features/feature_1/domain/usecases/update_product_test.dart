@@ -17,7 +17,7 @@ void main() {
     usecase = UpdateProductUsecase(mockProductRepository);
   });
 
-  final tProductId = 1;
+  
   final tProduct = const Product(
       id: 1,
       name: 'name',
@@ -28,17 +28,17 @@ void main() {
       category: 'category',
       size: [1, 2, 3]);
 
-  test('should get product from the repository', () async {
+  test('should update product from the repository', () async {
     // Arrange
     when(mockProductRepository.updateProduct(any))
         .thenAnswer((_) async => Right(tProduct));
 
     // Act
-    final result = await usecase.execute(id: tProductId);
+    final result = await usecase.execute(product: tProduct);
 
     // Assert
     expect(result, Right(tProduct));
-    verify(mockProductRepository.updateProduct(tProductId));
+    verify(mockProductRepository.updateProduct(tProduct));
     verifyNoMoreInteractions(mockProductRepository);
   });
 }

@@ -28,7 +28,7 @@ void main() {
       category: 'category',
       size: [1, 2, 3]);
 
-  test('should get product from the repository', () async {
+  test('should delete product from the repository', () async {
     // Arrange
     when(mockProductRepository.deleteProduct(any))
         .thenAnswer((_) async => Right(tProduct));
