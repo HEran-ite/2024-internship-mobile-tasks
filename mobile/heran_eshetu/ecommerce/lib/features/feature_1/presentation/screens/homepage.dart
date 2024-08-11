@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../dummy_data/products_data.dart';
+import '../../../../core/utils/dummy_data/products_data.dart';
 import '../widgets/product_cards.dart';
 
 class HomePage extends StatefulWidget {

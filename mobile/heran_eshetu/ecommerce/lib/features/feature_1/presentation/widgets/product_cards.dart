@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../dummy_data/products_data.dart';
+import '../../../../core/utils/dummy_data/products_data.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({

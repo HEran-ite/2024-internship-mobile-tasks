@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'screens/add_product_page.dart';
-import 'screens/homepage.dart';
-import 'screens/product_detail_page.dart';
-import 'screens/search_product.dart';
+import 'features/feature_1/presentation/screens/add_product_page.dart';
+import 'features/feature_1/presentation/screens/homepage.dart';
+import 'features/feature_1/presentation/screens/product_detail_page.dart';
+import 'features/feature_1/presentation/screens/search_product.dart';
 
 void main() {
   runApp(const MyApp());

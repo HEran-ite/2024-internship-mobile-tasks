@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import '../entitity/product.dart';
+import '../../domain/entitity/product.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/text_field.dart';
 

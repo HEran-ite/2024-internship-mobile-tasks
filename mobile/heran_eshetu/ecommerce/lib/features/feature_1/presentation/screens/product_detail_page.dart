@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../dummy_data/products_data.dart';
-import '../entitity/product.dart';
+import '../../../../core/utils/dummy_data/products_data.dart';
+import '../../domain/entitity/product.dart';
 import '../widgets/size_container.dart';
 
 class ProductDetailPage extends StatefulWidget {
