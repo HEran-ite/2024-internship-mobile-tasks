@@ -1,23 +1,23 @@
 // ignore_for_file: prefer_const_declarations
 
 import 'package:dartz/dartz.dart';
-import 'package:ecommerce/features/feature_1/domain/entitity/product.dart';
-import 'package:ecommerce/features/feature_1/domain/usecase/Update_product.dart';
+import 'package:ecommerce/features/product/domain/entitity/product.dart';
+import 'package:ecommerce/features/feature_1/domain/usecase/Delete_product.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../helpers/test_helper.mocks.mocks.dart';
 
 void main() {
-  late UpdateProductUsecase usecase;
+  late DeleteProductUsecase usecase;
   late MockProductRepository mockProductRepository;
 
   setUp(() {
     mockProductRepository = MockProductRepository();
-    usecase = UpdateProductUsecase(mockProductRepository);
+    usecase = DeleteProductUsecase(mockProductRepository);
   });
 
-  
+  final tProductId = 1;
   final tProduct = const Product(
       id: 1,
       name: 'name',
@@ -28,17 +28,17 @@ void main() {
       category: 'category',
       size: [1, 2, 3]);
 
-  test('should update product from the repository', () async {
+  test('should delete product from the repository', () async {
     // Arrange
-    when(mockProductRepository.updateProduct(any))
+    when(mockProductRepository.deleteProduct(any))
         .thenAnswer((_) async => Right(tProduct));
 
     // Act
-    final result = await usecase.execute(product: tProduct);
+    final result = await usecase.execute(id: tProductId);
 
     // Assert
     expect(result, Right(tProduct));
-    verify(mockProductRepository.updateProduct(tProduct));
+    verify(mockProductRepository.deleteProduct(tProductId));
     verifyNoMoreInteractions(mockProductRepository);
   });
 }

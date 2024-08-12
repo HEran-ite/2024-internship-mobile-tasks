@@ -1,4 +1,4 @@
-import '../../../features/feature_1/domain/entitity/product.dart';
+import '../../../features/product/domain/entitity/product.dart';
 
 // ignore: non_constant_identifier_names
 List<Product> Products = [

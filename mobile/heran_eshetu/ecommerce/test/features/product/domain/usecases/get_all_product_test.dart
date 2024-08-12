@@ -1,20 +1,20 @@
 // ignore_for_file: prefer_const_declarations
 
 import 'package:dartz/dartz.dart';
-import 'package:ecommerce/features/feature_1/domain/entitity/product.dart';
-import 'package:ecommerce/features/feature_1/domain/usecase/insert_product.dart';
+import 'package:ecommerce/features/product/domain/entitity/product.dart';
+import 'package:ecommerce/features/product/domain/usecase/get_all_product.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../helpers/test_helper.mocks.mocks.dart';
 
 void main() {
-  late InsertProductUsecase usecase;
+  late GetAllProductUsecase usecase;
   late MockProductRepository mockProductRepository;
 
   setUp(() {
     mockProductRepository = MockProductRepository();
-    usecase = InsertProductUsecase(mockProductRepository);
+    usecase = GetAllProductUsecase(mockProductRepository);
   });
 
 
@@ -28,17 +28,17 @@ void main() {
       category: 'category',
       size: [1, 2, 3]);
 
-  test('should add product to the repository', () async {
+  test('should get all products from the repository', () async {
     // Arrange
-    when(mockProductRepository.insertProduct(any))
+    when(mockProductRepository.getAllProduct())
         .thenAnswer((_) async => Right(tProduct));
 
     // Act
-    final result = await usecase.execute(product: tProduct);
+    final result = await usecase.execute();
 
     // Assert
     expect(result, Right(tProduct));
-    verify(mockProductRepository.insertProduct(tProduct));
+    verify(mockProductRepository.getAllProduct());
     verifyNoMoreInteractions(mockProductRepository);
   });
 }
