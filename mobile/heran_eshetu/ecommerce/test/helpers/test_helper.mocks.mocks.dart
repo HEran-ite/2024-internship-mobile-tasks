@@ -7,8 +7,7 @@ import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:ecommerce/core/error/failures.dart' as _i5;
-import 'package:ecommerce/features/product/domain/entitity/product.dart'
-    as _i6;
+import 'package:ecommerce/features/product/domain/entitity/product.dart' as _i6;
 import 'package:ecommerce/features/product/domain/repositories/product_repository.dart'
     as _i3;
 import 'package:mockito/mockito.dart' as _i1;
@@ -62,21 +61,22 @@ class MockProductRepository extends _i1.Mock implements _i3.ProductRepository {
       ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Product>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.Product>> getAllProduct() =>
+  _i4.Future<_i2.Either<_i5.Failure, List<_i6.Product>>> getAllProduct() =>
       (super.noSuchMethod(
         Invocation.method(
           #getAllProduct,
           [],
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.Product>>.value(
-            _FakeEither_0<_i5.Failure, _i6.Product>(
+        returnValue:
+            _i4.Future<_i2.Either<_i5.Failure, List<_i6.Product>>>.value(
+                _FakeEither_0<_i5.Failure, List<_i6.Product>>(
           this,
           Invocation.method(
             #getAllProduct,
             [],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Product>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.Product>>>);
 
   @override
   _i4.Future<_i2.Either<_i5.Failure, _i6.Product>> insertProduct(

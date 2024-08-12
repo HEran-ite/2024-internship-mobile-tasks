@@ -17,27 +17,39 @@ void main() {
     usecase = GetAllProductUsecase(mockProductRepository);
   });
 
-
-  final tProduct = const Product(
-      id: 1,
-      name: 'name',
-      description: 'description',
-      price: 1.0,
-      imageUrl: 'imageUrl',
-      rating: 'rating',
-      category: 'category',
-      size: [1, 2, 3]);
+  final tProducts = [
+    const Product(
+        id: 1,
+        name: 'Nike Air Max 270',
+        category: 'Men\'s Shoe',
+        price: 300.00,
+        imageUrl: 'images/nike.jpg',
+        description:
+            'footwear option characterized by its open lacing system, where the shoelace eyelets are sewn on top of the vamp (the upper part of the shoe). This design feature provides a more relaxed and casual look compared to the closed lacing system of oxford shoes. Derby shoes are typically made of high-quality leather, known for its durability and elegance, making them suitable for both formal and casual occasions. With their timeless style and comfortable fit, derby leather shoes are a staple in any well-rounded wardrobe.',
+        size: [39, 40, 41, 42, 43],
+        rating: ' 5.0'),
+    const Product(
+        id: 2,
+        name: 'Nike Air Max 270',
+        category: 'Men\'s Shoe',
+        price: 300.00,
+        imageUrl: 'images/nike.jpg',
+        description:
+            'footwear option characterized by its open lacing system, where the shoelace eyelets are sewn on top of the vamp (the upper part of the shoe). This design feature provides a more relaxed and casual look compared to the closed lacing system of oxford shoes. Derby shoes are typically made of high-quality leather, known for its durability and elegance, making them suitable for both formal and casual occasions. With their timeless style and comfortable fit, derby leather shoes are a staple in any well-rounded wardrobe.',
+        size: [39, 40, 41, 42, 43],
+        rating: ' 5.0'),
+  ];
 
   test('should get all products from the repository', () async {
     // Arrange
     when(mockProductRepository.getAllProduct())
-        .thenAnswer((_) async => Right(tProduct));
+        .thenAnswer((_) async => Right(tProducts));
 
     // Act
     final result = await usecase.execute();
 
     // Assert
-    expect(result, Right(tProduct));
+    expect(result, Right(tProducts));
     verify(mockProductRepository.getAllProduct());
     verifyNoMoreInteractions(mockProductRepository);
   });
