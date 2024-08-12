@@ -2,7 +2,7 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/features/product/domain/entitity/product.dart';
-import 'package:ecommerce/features/feature_1/domain/usecase/Delete_product.dart';
+import 'package:ecommerce/features/product/domain/usecase/Delete_product.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
