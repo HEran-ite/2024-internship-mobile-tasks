@@ -16,7 +16,8 @@ dependencies:
   equatable: ^2.0.3
   get_it: ^7.2.0
   dartz: ^0.10.0
-  connectivity: ^3.0.6
+  connectivity: ^2.3.1
+  data_connection_checker: ^0.3.4 # Add this dependency
   http: ^1.2.2
   shared_preferences: ^2.0.8
 

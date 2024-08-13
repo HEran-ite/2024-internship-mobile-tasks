@@ -3,7 +3,7 @@ class ServerException implements Exception {
   ServerException({this.message = 'Server Error'});
 }
 
-class CacheExeption implements Exception{
+class CacheException implements Exception{
   final String message;
-  CacheExeption({this.message = 'Cache Error'});
+  CacheException({this.message = 'Cache Error'});
 }

@@ -46,4 +46,18 @@ class ProductModel extends Product {
       'size': size,
     };
   }
+
+  factory ProductModel.fromProduct(Product product) {
+    return ProductModel(
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      description: product.description,
+      category: product.category,
+      imageUrl: product.imageUrl,
+      rating: product.rating,
+      size: product.size,
+    );
+  }
+ 
 }
