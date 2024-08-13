@@ -27,13 +27,16 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   }
 
   @override
-  Future<void> deleteProduct(int id) async {
+  Future<String> deleteProduct(int id) async {
     final response = await client.delete(Uri.parse(Urls.getProductById(id)));
     if (response.statusCode == 200) {
+      return 'Product with product id :$id is deleted';
+    } else {
       throw ServerException();
     }
   }
 
+  @override
   Future<List<Product>> getAllProduct() async {
     final response = await client.get(Uri.parse(Urls.getAllProducts()));
     if (response.statusCode == 200) {
