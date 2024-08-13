@@ -1,14 +1,19 @@
+// ignore_for_file: avoid_renaming_method_parameters
+
 import 'package:dartz/dartz.dart';
 import '../../../../core/error/failures.dart';
 import '../../../product/domain/entitity/product.dart';
 import '../../../product/domain/repositories/product_repository.dart';
+import 'base_usecase.dart';
 
-class DeleteProductUsecase {
+
+class DeleteProductUsecase extends UseCase<Product, int> {
   final ProductRepository repository;
 
   DeleteProductUsecase(this.repository);
 
-  Future<Either<Failure, Product>> execute({required int id}) async {
+  @override
+  Future<Either<Failure, Product>> execute(int id) async {
     return await repository.deleteProduct(id);
   }
 }

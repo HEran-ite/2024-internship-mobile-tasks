@@ -46,7 +46,7 @@ void main() {
         .thenAnswer((_) async => Right(tProducts));
 
     // Act
-    final result = await usecase.execute();
+    final result = await usecase.execute(NoParams());
 
     // Assert
     expect(result, Right(tProducts));
