@@ -7,8 +7,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import '../../../../helpers/test_helper.mocks.mocks.dart';
 
-
-
 void main() {
   late ProductRepositoryImpl repository;
   late MockProductRemoteDataSource mockRemoteDataSource;
@@ -38,8 +36,7 @@ void main() {
     size: [1, 2, 3],
   );
 
-
-   void runTestsOnline(Function body) {
+  void runTestsOnline(Function body) {
     group('device is online', () {
       setUp(() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
@@ -63,6 +60,8 @@ void main() {
     test('should check if the device is online', () async {
       // Arrange
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+      when(mockRemoteDataSource.getProduct(any))
+          .thenAnswer((_) async => testProduct);
 
       // Act
       await repository.getProduct(testId);
@@ -71,8 +70,7 @@ void main() {
       verify(mockNetworkInfo.isConnected);
     });
 
-   
-   void runTestsOnline(Function body) {
+    void runTestsOnline() {
       test(
         'should return remote data when the call to remote data source is successful',
         () async {
@@ -121,43 +119,41 @@ void main() {
           expect(result, equals(Left(ServerFailure())));
         },
       );
-    }});
+    }
+  });
 
-    runTestsOnline(() {
+  runTestsOffline(() {
+    test(
+      'should return last locally cached data when the cached data is present',
+      () async {
+        // Arrange
+        when(mockLocalDataSource.getLastProduct())
+            .thenAnswer((_) async => testProduct);
+        when(mockRemoteDataSource.getProduct(any)).thenAnswer((_) async => testProduct);
+        // Act
+        final result = await repository.getProduct(testId);
 
-      test(
-        'should return last locally cached data when the cached data is present',
-        () async {
-          // Arrange
-          when(mockLocalDataSource.getLastProduct())
-              .thenAnswer((_) async => testProduct);
+        // Assert
+        verifyZeroInteractions(mockRemoteDataSource);
+        verify(mockLocalDataSource.getLastProduct());
+        expect(result, equals(Right(testProduct)));
+      },
+    );
 
-          // Act
-          final result = await repository.getProduct(testId);
+    test(
+      'should return CacheFailure when there is no cached data present',
+      () async {
+        // Arrange
+        when(mockLocalDataSource.getLastProduct()).thenThrow(CacheException());
+        when(mockRemoteDataSource.getProduct(any)).thenAnswer((_) async => testProduct);
+        // Act
+        final result = await repository.getProduct(testId);
 
-          // Assert
-          verifyZeroInteractions(mockRemoteDataSource);
-          verify(mockLocalDataSource.getLastProduct());
-          expect(result, equals(Right(testProduct)));
-        },
-      );
-
-      test(
-        'should return CacheFailure when there is no cached data present',
-        () async {
-          // Arrange
-          when(mockLocalDataSource.getLastProduct())
-              .thenThrow(CacheException());
-
-          // Act
-          final result = await repository.getProduct(testId);
-
-          // Assert
-          verifyZeroInteractions(mockRemoteDataSource);
-          verify(mockLocalDataSource.getLastProduct());
-          expect(result, equals(Left(CacheFailure())));
-        },
-      );
-    });
+        // Assert
+        verifyZeroInteractions(mockRemoteDataSource);
+        verify(mockLocalDataSource.getLastProduct());
+        expect(result, equals(Left(CacheFailure())));
+      },
+    );
+  });
 }
-
