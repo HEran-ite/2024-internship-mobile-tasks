@@ -39,44 +39,61 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
+  @override
   Future<Either<Failure, Product>> insertProduct(Product product) async {
-    try {
-      final result = await remoteDataSource
-          .insertProduct(ProductModel.fromProduct(product));
-      return Right(result);
-    } on ServerException {
-      return Left(ServerFailure());
+    if (await networkInfo.isConnected) {
+      try {
+        final result = await remoteDataSource
+            .insertProduct(ProductModel.fromProduct(product));
+        return Right(result);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(NetworkFailure());
     }
   }
 
   @override
   Future<Either<Failure, Product>> deleteProduct(int id) async {
-    try {
-      final result = await remoteDataSource.deleteProduct(id);
-      return Right(result);
-    } on ServerException {
-      return Left(ServerFailure());
+    if (await networkInfo.isConnected) {
+      try {
+        final result = await remoteDataSource.deleteProduct(id);
+        return Right(result);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(NetworkFailure());
     }
   }
 
   @override
   Future<Either<Failure, Product>> updateProduct(Product product) async {
-    try {
-      final result = await remoteDataSource
-          .updateProduct(ProductModel.fromProduct(product));
-      return Right(result);
-    } on ServerException {
-      return Left(ServerFailure());
+    if (await networkInfo.isConnected) {
+      try {
+        final result = await remoteDataSource
+            .updateProduct(ProductModel.fromProduct(product));
+        return Right(result);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(NetworkFailure());
     }
   }
 
   @override
   Future<Either<Failure, List<Product>>> getAllProduct() async {
-    try {
-      final result = await remoteDataSource.getAllProduct();
-      return Right(result);
-    } on ServerException {
-      return Left(ServerFailure());
+    if (await networkInfo.isConnected) {
+      try {
+        final result = await remoteDataSource.getAllProduct();
+        return Right(result);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(NetworkFailure());
     }
   }
 }
