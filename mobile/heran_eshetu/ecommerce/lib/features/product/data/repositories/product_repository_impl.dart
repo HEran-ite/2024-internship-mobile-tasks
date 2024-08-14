@@ -29,26 +29,25 @@ class ProductRepositoryImpl implements ProductRepository {
         return Left(ServerFailure());
       }
     } else {
-      try{
-      final localProduct = await localDataSource.getLastProduct();
-      return Right(localProduct);
-    } on CacheException {
-      return Left(CacheFailure());
-    }}
+      try {
+        final localProduct = await localDataSource.getLastProduct();
+        return Right(localProduct);
+      } on CacheException {
+        return Left(CacheFailure());
+      }
+    }
   }
 
   @override
   Future<Either<Failure, Product>> insertProduct(Product product) async {
     try {
-      final result = await remoteDataSource.insertProduct(ProductModel.fromProduct(product));
+      final result = await remoteDataSource
+          .insertProduct(ProductModel.fromProduct(product));
       return Right(result);
     } on ServerException {
       return Left(ServerFailure());
     }
   }
-  
- 
-  
 
   @override
   Future<Either<Failure, Product>> deleteProduct(int id) async {
@@ -59,11 +58,12 @@ class ProductRepositoryImpl implements ProductRepository {
       return Left(ServerFailure());
     }
   }
-  
+
   @override
-  Future<Either<Failure, Product>> updateProduct(Product product)async {
+  Future<Either<Failure, Product>> updateProduct(Product product) async {
     try {
-      final result = await remoteDataSource.updateProduct(ProductModel.fromProduct(product));
+      final result = await remoteDataSource
+          .updateProduct(ProductModel.fromProduct(product));
       return Right(result);
     } on ServerException {
       return Left(ServerFailure());
@@ -71,23 +71,12 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<Either<Failure, List<Product>>> getAllProduct() async{
-    if (await networkInfo.isConnected) {
-      try {
-        final remoteProducts = await remoteDataSource.getAllProduct();
-        localDataSource.cacheProduct(remoteProducts); // Use a method that can handle a list of products
-        return Right(remoteProducts);
-      } on ServerException {
-        return Left(ServerFailure());
-      }
-    } else {
-      try {
-        final localProducts = await localDataSource.getAllProducts(); // Use a method that returns a list of products
-        return Right(localProducts);
-      } on CacheException {
-        return Left(CacheFailure());
-      }
+  Future<Either<Failure, List<Product>>> getAllProduct() async {
+    try {
+      final result = await remoteDataSource.getAllProduct();
+      return Right(result);
+    } on ServerException {
+      return Left(ServerFailure());
     }
   }
-  }
-
+}

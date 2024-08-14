@@ -10,7 +10,7 @@ abstract class ProductRemoteDataSource {
   Future<List<Product>> getAllProduct();
   Future<Product> insertProduct(ProductModel product);
   Future<Product> updateProduct(ProductModel product);
-  Future<void> deleteProduct(int id);
+  Future<Product> deleteProduct(int id);
 }
 
 class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
@@ -27,10 +27,10 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   }
 
   @override
-  Future<String> deleteProduct(int id) async {
+  Future<Product> deleteProduct(int id) async {
     final response = await client.delete(Uri.parse(Urls.getProductById(id)));
     if (response.statusCode == 200) {
-      return 'Product with product id :$id is deleted';
+      return ProductModel.fromJson(json.decode(response.body));
     } else {
       throw ServerException();
     }

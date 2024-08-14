@@ -65,7 +65,7 @@ void main() {
       //act
       final result = await productRemoteDataSourceImpl.deleteProduct(testId);
       //assert
-      expect(result, isA<String>());
+      expect(result, isA<Product>());
     });
 
     test('should throw server exception error when the response code is 404',
