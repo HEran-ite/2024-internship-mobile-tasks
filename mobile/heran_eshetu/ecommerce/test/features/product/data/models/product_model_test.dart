@@ -26,7 +26,7 @@ void main() {
   test('should return a valid model', () async {
     // Arrange
     final Map<String, dynamic> jsonMap =
-        json.decode(readJson('helpers/dummy_data/dummy_product_response.json'));
+        json.decode(readJson('dummy_product_response.json'));
     // Act
 
     final result = ProductModel.fromJson(jsonMap);

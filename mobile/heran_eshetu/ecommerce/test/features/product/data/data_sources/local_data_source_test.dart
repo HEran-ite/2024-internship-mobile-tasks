@@ -57,6 +57,8 @@ void main() {
     );
 
     test ('should call sharedPreferences to cache the data', () async {
+      // arrange
+      when(mockSharedPreferences.setString(any, any)).thenAnswer((_) async => true);
       // act
       dataSource.cacheProduct(testProductModel);
       // assert
