@@ -36,7 +36,7 @@ void main() {
       //arrange
       when(mockHttpClient.get(Uri.parse(Urls.getProductById(testId))))
           .thenAnswer((_) async => http.Response(
-              readJson('helpers/dummy_data/dummy_product_response.json'), 200));
+              readJson('dummy_product_response.json'), 200));
       //act
       final result = await productRemoteDataSourceImpl.getProduct(testId);
       //assert
@@ -61,7 +61,7 @@ void main() {
       //arrange
       when(mockHttpClient.delete(Uri.parse(Urls.getProductById(testId))))
           .thenAnswer((_) async => http.Response(
-              readJson('helpers/dummy_data/dummy_product_response.json'), 200));
+              readJson('dummy_product_response.json'), 200));
       //act
       final result = await productRemoteDataSourceImpl.deleteProduct(testId);
       //assert
@@ -89,7 +89,7 @@ void main() {
         headers: anyNamed('headers'),
         body: anyNamed('body'),
       )).thenAnswer((_) async => http.Response(
-          readJson('helpers/dummy_data/dummy_product_response.json'), 201));
+          readJson('dummy_product_response.json'), 201));
       //act
       final result =
           await productRemoteDataSourceImpl.insertProduct(testProduct);
@@ -121,7 +121,7 @@ void main() {
         headers: {'Content-Type': 'application/json'},
         body: json.encode(testProduct.toJson()),
       )).thenAnswer((_) async => http.Response(
-          readJson('helpers/dummy_data/dummy_product_response.json'), 200));
+          readJson('dummy_product_response.json'), 200));
       //act
       final result =
           await productRemoteDataSourceImpl.updateProduct(testProduct);
@@ -151,7 +151,7 @@ void main() {
       when(mockHttpClient.get(
         Uri.parse(Urls.getAllProducts()),
       )).thenAnswer((_) async => http.Response(
-          readJson('helpers/dummy_data/dummy_products_response.json'), 200));
+          readJson('dummy_products_response.json'), 200));
       //act
       final result = await productRemoteDataSourceImpl.getAllProduct();
       //assert
