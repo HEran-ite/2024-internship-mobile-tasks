@@ -6,15 +6,13 @@ import '../../../../core/error/failures.dart';
 import '../../../product/domain/entitity/product.dart';
 import '../../../product/domain/repositories/product_repository.dart';
 
-
-
-class DeleteProductUsecase extends UseCase<Product, int> {
+class DeleteProductUsecase extends UseCase<Product, String> {
   final ProductRepository repository;
 
   DeleteProductUsecase(this.repository);
 
   @override
-  Future<Either<Failure, Product>> execute(int id) async {
+  Future<Either<Failure, Product>> execute(String id) async {
     return await repository.deleteProduct(id);
   }
 }

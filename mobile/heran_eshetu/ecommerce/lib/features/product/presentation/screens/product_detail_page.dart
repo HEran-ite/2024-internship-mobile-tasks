@@ -21,7 +21,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         (ModalRoute.of(context)?.settings.arguments as Map?) ?? {};
     final Product product = arguments['product'];
     final List<Product> products = arguments['products'];
-    selectedSize ??= product.size[0];
+    // selectedSize ??= product.size[0];
+    selectedSize=0;
     return Scaffold(
       body: Column(
         children: [
@@ -59,23 +60,25 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
             child: Column(
               children: [
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      product.category,
-                      style: const TextStyle(fontSize: 12, color: Colors.grey),
+                      // product.category,
+                      'men\s shoe',
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
                     ),
                     Row(
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.star,
                           size: 15,
                           color: Color.fromARGB(255, 246, 186, 45),
                         ),
                         Text(
-                          product.rating,
-                          style: const TextStyle(fontSize: 12, color: Colors.grey),
+                          // product.rating,
+                          '4.0',
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
                         ),
                       ],
                     ),
@@ -113,7 +116,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(children: [
-                    for (var sz in product.size)
+                    // for (var sz in product.size)
+                    for (var sz in [39, 40, 41, 42, 43, 44])
                       GestureDetector(
                         onTap: () {
                           setState(() {

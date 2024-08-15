@@ -20,23 +20,23 @@ void main() {
     productRemoteDataSourceImpl =
         ProductRemoteDataSourceImpl(client: mockHttpClient);
   });
-  const int testId = 1;
+  const String testId = '1';
   ProductModel testProduct = const ProductModel(
-      id: 1,
+      id: '1',
       name: 'name',
       description: 'description',
       price: 1.0,
       imageUrl: 'imageUrl',
-      rating: 'rating',
-      category: 'category',
-      size: [1, 2, 3]);
+  );
+
+
   group('get current product', () {
     test('should return the product model when the response code is 200',
         () async {
       //arrange
       when(mockHttpClient.get(Uri.parse(Urls.getProductById(testId))))
-          .thenAnswer((_) async => http.Response(
-              readJson('dummy_product_response.json'), 200));
+          .thenAnswer((_) async =>
+              http.Response(readJson('dummy_product_response.json'), 200));
       //act
       final result = await productRemoteDataSourceImpl.getProduct(testId);
       //assert
@@ -60,8 +60,8 @@ void main() {
         () async {
       //arrange
       when(mockHttpClient.delete(Uri.parse(Urls.getProductById(testId))))
-          .thenAnswer((_) async => http.Response(
-              readJson('dummy_product_response.json'), 200));
+          .thenAnswer((_) async =>
+              http.Response(readJson('dummy_product_response.json'), 200));
       //act
       final result = await productRemoteDataSourceImpl.deleteProduct(testId);
       //assert
@@ -85,11 +85,11 @@ void main() {
         () async {
       //arrange
       when(mockHttpClient.post(
-        Uri.parse(Urls.getAllProducts()),
+        Uri.parse(Urls.getProductById(testId)),
         headers: anyNamed('headers'),
         body: anyNamed('body'),
-      )).thenAnswer((_) async => http.Response(
-          readJson('dummy_product_response.json'), 201));
+      )).thenAnswer((_) async =>
+          http.Response(readJson('dummy_product_response.json'), 201));
       //act
       final result =
           await productRemoteDataSourceImpl.insertProduct(testProduct);
@@ -101,7 +101,7 @@ void main() {
         () async {
       //arrange
       when(mockHttpClient.post(
-        Uri.parse(Urls.getAllProducts()),
+        Uri.parse(Urls.getProductById(testId)),
         headers: anyNamed('headers'),
         body: anyNamed('body'),
       )).thenAnswer((_) async => http.Response('Not found', 404));
@@ -120,8 +120,8 @@ void main() {
         Uri.parse(Urls.getProductById(testProduct.id)),
         headers: {'Content-Type': 'application/json'},
         body: json.encode(testProduct.toJson()),
-      )).thenAnswer((_) async => http.Response(
-          readJson('dummy_product_response.json'), 200));
+      )).thenAnswer((_) async =>
+          http.Response(readJson('dummy_product_response.json'), 200));
       //act
       final result =
           await productRemoteDataSourceImpl.updateProduct(testProduct);
@@ -150,8 +150,8 @@ void main() {
       //arrange
       when(mockHttpClient.get(
         Uri.parse(Urls.getAllProducts()),
-      )).thenAnswer((_) async => http.Response(
-          readJson('dummy_products_response.json'), 200));
+      )).thenAnswer((_) async =>
+          http.Response(readJson('dummy_products_response.json'), 200));
       //act
       final result = await productRemoteDataSourceImpl.getAllProduct();
       //assert

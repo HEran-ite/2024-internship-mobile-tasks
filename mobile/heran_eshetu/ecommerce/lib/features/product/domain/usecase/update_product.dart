@@ -1,13 +1,10 @@
-// ignore_for_file: avoid_renaming_method_parameters
-
 import 'package:dartz/dartz.dart';
 import '../../../../core/base_usecase.dart';
 import '../../../../core/error/failures.dart';
 import '../../../product/domain/entitity/product.dart';
 import '../../../product/domain/repositories/product_repository.dart';
 
-
-class UpdateProductUsecase extends UseCase<Product, Product>  {
+class UpdateProductUsecase extends UseCase<Product, Product> {
   final ProductRepository repository;
 
   UpdateProductUsecase(this.repository);
@@ -17,5 +14,3 @@ class UpdateProductUsecase extends UseCase<Product, Product>  {
     return await repository.updateProduct(product);
   }
 }
-
-

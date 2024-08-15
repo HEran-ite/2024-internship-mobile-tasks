@@ -19,21 +19,21 @@ class ProductRepositoryImpl implements ProductRepository {
       required this.networkInfo});
 
   @override
-  Future<Either<Failure, Product>> getProduct(int id) async {
+  Future<Either<Failure, Product>> getProduct(String id) async {
     if (await networkInfo.isConnected) {
       try {
         final remoteProduct = await remoteDataSource.getProduct(id);
         localDataSource.cacheProduct(ProductModel.fromProduct(remoteProduct));
         return Right(remoteProduct);
       } on ServerException {
-        return Left(ServerFailure());
+        return Left(ServerFailure('Server failure'));
       }
     } else {
       try {
         final localProduct = await localDataSource.getLastProduct();
         return Right(localProduct);
       } on CacheException {
-        return Left(CacheFailure());
+        return Left(CacheFailure('Cache failure'));
       }
     }
   }
@@ -47,24 +47,24 @@ class ProductRepositoryImpl implements ProductRepository {
             .insertProduct(ProductModel.fromProduct(product));
         return Right(result);
       } on ServerException {
-        return Left(ServerFailure());
+        return Left(ServerFailure('Server failure'));
       }
     } else {
-      return Left(NetworkFailure());
+      return Left(NetworkFailure('Network failure'));
     }
   }
 
   @override
-  Future<Either<Failure, Product>> deleteProduct(int id) async {
+  Future<Either<Failure, Product>> deleteProduct(String id) async {
     if (await networkInfo.isConnected) {
       try {
         final result = await remoteDataSource.deleteProduct(id);
         return Right(result);
       } on ServerException {
-        return Left(ServerFailure());
+        return Left(ServerFailure('Server failure'));
       }
     } else {
-      return Left(NetworkFailure());
+      return Left(NetworkFailure('Network failure'));
     }
   }
 
@@ -76,10 +76,10 @@ class ProductRepositoryImpl implements ProductRepository {
             .updateProduct(ProductModel.fromProduct(product));
         return Right(result);
       } on ServerException {
-        return Left(ServerFailure());
+        return Left(ServerFailure('Server failure'));
       }
     } else {
-      return Left(NetworkFailure());
+      return Left(NetworkFailure('Network failure'));
     }
   }
 
@@ -90,10 +90,10 @@ class ProductRepositoryImpl implements ProductRepository {
         final result = await remoteDataSource.getAllProduct();
         return Right(result);
       } on ServerException {
-        return Left(ServerFailure());
+        return Left(ServerFailure('Server failure'));
       }
     } else {
-      return Left(NetworkFailure());
+      return Left(NetworkFailure('Network failure'));
     }
   }
 }

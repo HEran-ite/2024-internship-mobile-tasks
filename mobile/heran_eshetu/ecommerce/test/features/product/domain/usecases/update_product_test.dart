@@ -19,14 +19,12 @@ void main() {
 
   
   final tProduct = const Product(
-      id: 1,
+      id: '1',
       name: 'name',
       description: 'description',
       price: 1.0,
       imageUrl: 'imageUrl',
-      rating: 'rating',
-      category: 'category',
-      size: [1, 2, 3]);
+);
 
   test('should update product from the repository', () async {
     // Arrange

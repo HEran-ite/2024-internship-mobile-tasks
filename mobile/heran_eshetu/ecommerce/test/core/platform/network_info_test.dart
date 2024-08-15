@@ -2,7 +2,7 @@ import 'package:ecommerce/core/platform/network_info.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import '../helpers/test_helper.mocks.mocks.dart';
+import '../../helpers/test_helper.mocks.mocks.dart';
 
 void main() {
   late NetworkInfoImpl networkInfo;

@@ -6,28 +6,29 @@ import '../../domain/entitity/product.dart';
 import '../model/product_model.dart';
 
 abstract class ProductRemoteDataSource {
-  Future<Product> getProduct(int id);
+  Future<Product> getProduct(String id);
   Future<List<Product>> getAllProduct();
-  Future<Product> insertProduct(ProductModel product);
-  Future<Product> updateProduct(ProductModel product);
-  Future<Product> deleteProduct(int id);
+  Future<Product> insertProduct(Product product);
+  Future<Product> updateProduct(Product product);
+  Future<Product> deleteProduct(String id);
 }
 
 class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   final http.Client client;
   ProductRemoteDataSourceImpl({required this.client});
   @override
-  Future<Product> getProduct(int id) async {
+  Future<Product> getProduct(String id) async {
     final response = await client.get(Uri.parse(Urls.getProductById(id)));
     if (response.statusCode == 200) {
-      return ProductModel.fromJson(json.decode(response.body));
+      var check=ProductModel.fromJson(json.decode(response.body));
+      return check;
     } else {
       throw ServerException();
     }
   }
 
   @override
-  Future<Product> deleteProduct(int id) async {
+  Future<Product> deleteProduct(String id) async {
     final response = await client.delete(Uri.parse(Urls.getProductById(id)));
     if (response.statusCode == 200) {
       return ProductModel.fromJson(json.decode(response.body));
@@ -48,11 +49,11 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   }
 
   @override
-  Future<Product> insertProduct(ProductModel product) async {
+  Future<Product> insertProduct(Product product) async {
     final response = await client.post(
-      Uri.parse(Urls.getAllProducts()),
+      Uri.parse(Urls.getProductById(product.id)),
       headers: {'Content-Type': 'application/json'},
-      body: json.encode(product.toJson()),
+      body: json.encode(product),
     );
     if (response.statusCode == 201) {
       return ProductModel.fromJson(json.decode(response.body));
@@ -62,11 +63,11 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   }
 
   @override
-  Future<Product> updateProduct(ProductModel product) async {
+  Future<Product> updateProduct(Product product) async {
     final response = await client.put(
       Uri.parse(Urls.getProductById(product.id)),
       headers: {'Content-Type': 'application/json'},
-      body: json.encode(product.toJson()),
+      body: json.encode(product),
     );
     if (response.statusCode == 200) {
       return ProductModel.fromJson(json.decode(response.body));

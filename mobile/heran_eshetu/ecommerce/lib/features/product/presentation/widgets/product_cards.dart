@@ -60,24 +60,26 @@ List<Card> _buildCards(BuildContext context) {
                   const SizedBox(
                     height: 10,
                   ),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        product.category,
+                        // product.category,
+                        'men\'s shoe',
                         style:
-                            const TextStyle(fontSize: 10, color: Colors.grey),
+                            TextStyle(fontSize: 10, color: Colors.grey),
                       ),
                       Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.star,
                             size: 14,
                             color: Color.fromARGB(255, 246, 186, 45),
                           ),
                           Text(
-                            '(${product.rating})',
-                            style: const TextStyle(
+                            // '(${product.rating})',
+                            '4.0',
+                            style: TextStyle(
                                 fontSize: 10, color: Colors.grey),
                           ),
                         ],

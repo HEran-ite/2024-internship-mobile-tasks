@@ -20,8 +20,8 @@ class _AddProductPageState extends State<AddProductPage> {
 
     TextEditingController nameController =
         TextEditingController(text: product?.name ?? '');
-    TextEditingController categoryController =
-        TextEditingController(text: product?.category ?? '');
+    // TextEditingController categoryController =
+    //     TextEditingController(text: product?.category ?? '');
     TextEditingController priceController =
         TextEditingController(text: product?.price.toString() ?? '');
     TextEditingController descriptionController =
@@ -86,7 +86,8 @@ class _AddProductPageState extends State<AddProductPage> {
                 lines: 1,
               ),
               MyTextField(
-                controller: categoryController,
+                // controller: categoryController,
+                controller: nameController,
                 lable: 'category',
                 lines: 1,
               ),

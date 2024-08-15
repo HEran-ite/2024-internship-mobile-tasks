@@ -2,7 +2,7 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/features/product/domain/entitity/product.dart';
-import 'package:ecommerce/features/product/domain/usecase/Delete_product.dart';
+import 'package:ecommerce/features/product/domain/usecase/delete_product.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
@@ -17,16 +17,14 @@ void main() {
     usecase = DeleteProductUsecase(mockProductRepository);
   });
 
-  final tProductId = 1;
+  final tProductId = '1';
   final tProduct = const Product(
-      id: 1,
+      id: '1',
       name: 'name',
       description: 'description',
       price: 1.0,
       imageUrl: 'imageUrl',
-      rating: 'rating',
-      category: 'category',
-      size: [1, 2, 3]);
+  );
 
   test('should delete product from the repository', () async {
     // Arrange

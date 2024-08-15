@@ -46,14 +46,12 @@ void main() {
 
   group('cache product', (){
     final testProductModel = const ProductModel(
-      id: 1,
+      id: '1',
       name: 'name',
       description: 'description',
       price: 1.0,
       imageUrl: 'imageUrl',
-      rating: 'rating',
-      category: 'category',
-      size: [1, 2, 3],
+
     );
 
     test ('should call sharedPreferences to cache the data', () async {

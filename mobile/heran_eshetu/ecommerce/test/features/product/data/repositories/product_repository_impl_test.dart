@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/core/error/exceptions.dart';
 import 'package:ecommerce/core/error/failures.dart';
@@ -24,16 +26,14 @@ void main() {
     );
   });
 
-  final testId = 1;
+  final testId = '1';
   const testProduct = ProductModel(
-    id: 1,
+    id: '1',
     name: 'name',
     description: 'description',
     price: 1.0,
     imageUrl: 'imageUrl',
-    rating: 'rating',
-    category: 'category',
-    size: [1, 2, 3],
+  
   );
 
   void runTestsOnline(Function body) {
@@ -83,7 +83,7 @@ void main() {
 
           // Assert
           verify(mockRemoteDataSource.getProduct(testId));
-          expect(result, equals(Right(testProduct)));
+          expect(result, equals(const Right(testProduct)));
         },
       );
 
@@ -116,7 +116,7 @@ void main() {
           // Assert
           verify(mockRemoteDataSource.getProduct(testId));
           verifyZeroInteractions(mockLocalDataSource);
-          expect(result, equals(Left(ServerFailure())));
+          expect(result, equals(Left(ServerFailure('Server failure'))));
         },
       );
     }
@@ -136,7 +136,7 @@ void main() {
           // Assert
           verifyZeroInteractions(mockRemoteDataSource);
           verify(mockLocalDataSource.getLastProduct());
-          expect(result, equals(Right(testProduct)));
+          expect(result, equals(const Right(testProduct)));
         },
       );
 
@@ -154,7 +154,7 @@ void main() {
           // Assert
           verifyZeroInteractions(mockRemoteDataSource);
           verify(mockLocalDataSource.getLastProduct());
-          expect(result, equals(Left(CacheFailure())));
+          expect(result, equals(Left(CacheFailure('Cache failure'))));
         },
       );
     });
@@ -215,7 +215,7 @@ void main() {
         // Assert
         verify(mockRemoteDataSource.insertProduct(testProduct));
         verifyZeroInteractions(mockLocalDataSource);
-        expect(result, equals(Left(ServerFailure())));
+        expect(result, equals(Left(ServerFailure('Server failure'))));
       });
     }
 
@@ -228,7 +228,7 @@ void main() {
         // Assert
         verifyZeroInteractions(mockRemoteDataSource);
         verifyZeroInteractions(mockLocalDataSource);
-        expect(result, equals(Left(NetworkFailure())));
+        expect(result, equals(Left(NetworkFailure('Network failure'))));
       });
     }
   });
@@ -260,7 +260,7 @@ void main() {
 
           // Assert
           verify(mockRemoteDataSource.deleteProduct(testId));
-          expect(result, equals(Right(testProduct)));
+          expect(result, equals(const Right(testProduct)));
         },
       );
 
@@ -276,7 +276,7 @@ void main() {
 
           // Assert
           verify(mockRemoteDataSource.deleteProduct(testId));
-          expect(result, equals(Left(ServerFailure())));
+          expect(result, equals(Left(ServerFailure('Server failure'))));
         },
       );
     }
@@ -294,13 +294,13 @@ void main() {
           // Assert
           verifyZeroInteractions(mockRemoteDataSource);
           verifyZeroInteractions(mockLocalDataSource);
-          expect(result, equals(Left(NetworkFailure())));
+          expect(result, equals(Left(NetworkFailure('Network failure'))));
         },
       );
     });
   });
 
-  group('updateProduct', (){
+  group('updateProduct', () {
     test('should check if the device is online', () async {
       // Arrange
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
@@ -327,7 +327,7 @@ void main() {
 
           // Assert
           verify(mockRemoteDataSource.updateProduct(testProduct));
-          expect(result, equals(Right(testProduct)));
+          expect(result, equals(const Right(testProduct)));
         },
       );
 
@@ -343,7 +343,7 @@ void main() {
 
           // Assert
           verify(mockRemoteDataSource.updateProduct(testProduct));
-          expect(result, equals(Left(ServerFailure())));
+          expect(result, equals(Left(ServerFailure('Server failure'))));
         },
       );
     }
@@ -361,13 +361,13 @@ void main() {
           // Assert
           verifyZeroInteractions(mockRemoteDataSource);
           verifyZeroInteractions(mockLocalDataSource);
-          expect(result, equals(Left(NetworkFailure())));
+          expect(result, equals(Left(NetworkFailure('Network failure'))));
         },
       );
     });
   });
 
-  group('get all products', (){
+  group('get all products', () {
     test('should check if the device is online', () async {
       // Arrange
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
@@ -380,7 +380,7 @@ void main() {
       // Assert
       verify(mockNetworkInfo.isConnected);
     });
-    runTestsOnline(){
+    runTestsOnline() {
       test(
         'should return remote data when the call to remote data source is successful',
         () async {
@@ -393,7 +393,7 @@ void main() {
 
           // Assert
           verify(mockRemoteDataSource.getAllProduct());
-          expect(result, equals(Right([testProduct])));
+          expect(result, equals(const Right([testProduct])));
         },
       );
 
@@ -409,11 +409,12 @@ void main() {
 
           // Assert
           verify(mockRemoteDataSource.getAllProduct());
-          expect(result, equals(Left(ServerFailure())));
+          expect(result, equals(Left(ServerFailure('Server failure'))));
         },
       );
     }
-    runTestsOffline( () {
+
+    runTestsOffline(() {
       test(
         'should return network failure when get all product is called',
         () async {
@@ -426,10 +427,9 @@ void main() {
           // Assert
           verifyZeroInteractions(mockRemoteDataSource);
           verifyZeroInteractions(mockLocalDataSource);
-          expect(result, equals(Left(NetworkFailure())));
+          expect(result, equals(Left(NetworkFailure('Network failure'))));
         },
       );
-
     });
   });
 }
