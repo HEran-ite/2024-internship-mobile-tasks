@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import '../../../../core/utils/dummy_data/products_data.dart';
+import '../../domain/entitity/product.dart';
 
 class ProductCard extends StatelessWidget {
+  final Product product;
+
   const ProductCard({
-    super.key,
-  });
+    required this.product,
+  }) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +69,7 @@ List<Card> _buildCards(BuildContext context) {
                       Text(
                         // product.category,
                         'men\'s shoe',
-                        style:
-                            TextStyle(fontSize: 10, color: Colors.grey),
+                        style: TextStyle(fontSize: 10, color: Colors.grey),
                       ),
                       Row(
                         children: [
@@ -79,8 +81,7 @@ List<Card> _buildCards(BuildContext context) {
                           Text(
                             // '(${product.rating})',
                             '4.0',
-                            style: TextStyle(
-                                fontSize: 10, color: Colors.grey),
+                            style: TextStyle(fontSize: 10, color: Colors.grey),
                           ),
                         ],
                       ),

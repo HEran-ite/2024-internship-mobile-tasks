@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
-import '../../domain/entitity/product.dart';
 import '../../domain/usecase/delete_product.dart';
 import '../../domain/usecase/get_all_product.dart';
 import '../../domain/usecase/get_product.dart';
@@ -42,21 +41,24 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       emit(ProductStateLoading());
       final result = await insertProductUsecase.execute(event.product);
       result.fold(
-          (failure) => emit(ProductInsertFailureState(message: failure.message)),
+          (failure) =>
+              emit(ProductInsertFailureState(message: failure.message)),
           (product) => emit(ProductInsertState(product: product)));
     }, transformer: debounce(const Duration(milliseconds: 500)));
     on<UpdateProductEvent>((event, emit) async {
       emit(ProductStateLoading());
       final result = await updateProductUsecase.execute(event.product);
       result.fold(
-          (failure) => emit(ProductUpdateFailureState(message: failure.message)),
+          (failure) =>
+              emit(ProductUpdateFailureState(message: failure.message)),
           (product) => emit(ProductUpdateState(product: product)));
     }, transformer: debounce(const Duration(milliseconds: 500)));
     on<DeleteProductEvent>((event, emit) async {
       emit(ProductStateLoading());
       final result = await deleteProductUsecase.execute(event.productId);
       result.fold(
-          (failure) => emit(ProductDeleteFailureState(message: failure.message)),
+          (failure) =>
+              emit(ProductDeleteFailureState(message: failure.message)),
           (product) => emit(ProductDeleteState(product: product)));
     }, transformer: debounce(const Duration(milliseconds: 500)));
   }

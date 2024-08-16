@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../../injection_container.dart';
 import '../../domain/entitity/product.dart';
+import '../bloc/product_bloc.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/text_field.dart';
 
@@ -14,6 +17,15 @@ class AddProductPage extends StatefulWidget {
 class _AddProductPageState extends State<AddProductPage> {
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: const MyAppBar(
+        title: 'Add Product',
+      ),
+      body: buildBody(context),
+    );
+  }
+
+  BlocProvider<ProductBloc> buildBody(BuildContext context) {
     final Map arguments =
         (ModalRoute.of(context)?.settings.arguments as Map?) ?? {};
     final Product? product = arguments['product'];
@@ -27,12 +39,9 @@ class _AddProductPageState extends State<AddProductPage> {
     TextEditingController descriptionController =
         TextEditingController(text: product?.description ?? '');
     String? file = product?.imageUrl;
-
-    return Scaffold(
-        appBar: const MyAppBar(
-          title: 'Add Product',
-        ),
-        body: Container(
+    return BlocProvider(
+        create: (_) => sl<ProductBloc>(),
+        child: Container(
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [

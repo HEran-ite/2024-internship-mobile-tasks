@@ -2,7 +2,6 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/core/error/failures.dart';
 import 'package:ecommerce/features/product/data/model/product_model.dart';
-import 'package:ecommerce/features/product/domain/usecase/get_all_product.dart';
 import 'package:ecommerce/features/product/presentation/bloc/product_bloc.dart';
 import 'package:ecommerce/features/product/presentation/bloc/product_event.dart';
 import 'package:ecommerce/features/product/presentation/bloc/product_state.dart';
@@ -77,7 +76,7 @@ void main() {
   blocTest<ProductBloc, ProductState>(
     'should emit [ProductStateLoading, AllProductsLoaded] when successful',
     build: () {
-      when(mockGetAllProductUsecase.execute(NoParams()))
+      when(mockGetAllProductUsecase.execute(any))
           .thenAnswer((_) async => const Right([testProduct]));
       return productBloc;
     },
@@ -92,7 +91,7 @@ void main() {
   blocTest<ProductBloc, ProductState>(
     'should emit [ProductStateLoading, AllProductsLoadedFailure] when unsuccessful',
     build: () {
-      when(mockGetAllProductUsecase.execute(NoParams()))
+      when(mockGetAllProductUsecase.execute(any))
           .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
       return productBloc;
     },

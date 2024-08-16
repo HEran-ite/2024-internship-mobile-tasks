@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../injection_container.dart';
+import '../bloc/product_bloc.dart';
+import '../bloc/product_state.dart';
 import '../widgets/app_bar.dart';
+import '../widgets/loading.dart';
+import '../widgets/message_display.dart';
 import '../widgets/product_cards.dart';
 import '../widgets/text_field.dart';
 
@@ -22,7 +28,14 @@ class _SearchPageState extends State<SearchPage> {
       appBar: const MyAppBar(
         title: 'Add Product',
       ),
-      body: Container(
+      body: buildBody(context),
+    );
+  }
+
+  BlocProvider<ProductBloc> buildBody(BuildContext context) {
+    return BlocProvider(
+      create: (_) => sl<ProductBloc>(),
+      child: Container(
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
@@ -68,7 +81,27 @@ class _SearchPageState extends State<SearchPage> {
             ),
             Expanded(
               child: Stack(children: [
-                const ProductCard(),
+                BlocProvider<ProductBloc>(
+                  create: (_) => sl<ProductBloc>(),
+                  child: BlocBuilder<ProductBloc, ProductState>(
+                    builder: (context, state) {
+                      if (state is ProductStateLoading) {
+                        return const LoadingWidget();
+                      } else if (state is AllProductsLoaded) {
+                        return ListView.builder(
+                          itemCount: state.products.length,
+                          itemBuilder: (context, index) {
+                            return ProductCard(product: state.products[index]);
+                          },
+                        );
+                      } else if (state is AllProductsLoadedFailure) {
+                        return MessageDisplay(message: state.message);
+                      } else {
+                        return const MessageDisplay(message: 'Unknown state');
+                      }
+                    },
+                  ),
+                ),
                 if (isFilter)
                   Expanded(
                     child: Positioned(
@@ -118,7 +151,8 @@ class _SearchPageState extends State<SearchPage> {
                                 ),
                                 padding: const EdgeInsets.all(15),
                                 width: double.infinity,
-                                margin: const EdgeInsets.only(top: 40, bottom: 10),
+                                margin:
+                                    const EdgeInsets.only(top: 40, bottom: 10),
                                 child: const Text(
                                   'APPLY',
                                   style: TextStyle(color: Colors.white),

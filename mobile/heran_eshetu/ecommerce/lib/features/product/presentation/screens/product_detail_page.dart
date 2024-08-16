@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/dummy_data/products_data.dart';
+import '../../../../injection_container.dart';
 import '../../domain/entitity/product.dart';
+import '../bloc/product_bloc.dart';
 import '../widgets/size_container.dart';
 
 class ProductDetailPage extends StatefulWidget {
@@ -17,14 +20,21 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   int? selectedSize;
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      body: buildBody(context),
+    );
+  }
+
+  BlocProvider<ProductBloc> buildBody(BuildContext context) {
     final Map arguments =
         (ModalRoute.of(context)?.settings.arguments as Map?) ?? {};
     final Product product = arguments['product'];
     final List<Product> products = arguments['products'];
     // selectedSize ??= product.size[0];
-    selectedSize=0;
-    return Scaffold(
-      body: Column(
+    selectedSize = 0;
+    return BlocProvider(
+      create: (_) => sl<ProductBloc>(),
+      child: Column(
         children: [
           Stack(children: [
             AspectRatio(
@@ -156,8 +166,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         Navigator.pushNamed(context, '/homepage');
                       },
                       style: ButtonStyle(
-                        padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(
-                            vertical: 20, horizontal: 50)),
+                        padding: const WidgetStatePropertyAll(
+                            EdgeInsets.symmetric(vertical: 20, horizontal: 50)),
                         side: WidgetStateProperty.all(
                             const BorderSide(color: Colors.red)),
                         shape: WidgetStatePropertyAll(RoundedRectangleBorder(
@@ -178,8 +188,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             });
                       },
                       style: ButtonStyle(
-                        padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(
-                            vertical: 20, horizontal: 50)),
+                        padding: const WidgetStatePropertyAll(
+                            EdgeInsets.symmetric(vertical: 20, horizontal: 50)),
                         backgroundColor: WidgetStateProperty.all(
                             const Color.fromARGB(255, 32, 77, 202)),
                         shape: WidgetStatePropertyAll(RoundedRectangleBorder(
