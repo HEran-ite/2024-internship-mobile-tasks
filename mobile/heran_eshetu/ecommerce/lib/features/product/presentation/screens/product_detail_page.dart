@@ -1,65 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/utils/dummy_data/products_data.dart';
 import '../../../../injection_container.dart';
 import '../../domain/entitity/product.dart';
 import '../bloc/product_bloc.dart';
+import '../bloc/product_event.dart';
 import '../widgets/size_container.dart';
 
-class ProductDetailPage extends StatefulWidget {
+class ProductDetailPage extends StatelessWidget {
   const ProductDetailPage({
     super.key,
   });
 
   @override
-  State<ProductDetailPage> createState() => _ProductDetailPageState();
-}
-
-class _ProductDetailPageState extends State<ProductDetailPage> {
-  int? selectedSize;
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: buildBody(context),
-    );
-  }
-
-  BlocProvider<ProductBloc> buildBody(BuildContext context) {
     final Map arguments =
         (ModalRoute.of(context)?.settings.arguments as Map?) ?? {};
     final Product product = arguments['product'];
-    final List<Product> products = arguments['products'];
-    // selectedSize ??= product.size[0];
-    selectedSize = 0;
+    return Scaffold(
+      body: BlocProvider(
+        create: (_) =>
+            sl<ProductBloc>()..add(DeleteProductEvent(productId: product.id)),
+        child: _ProductDetailPageBody(
+          product: product,
+        ),
+      ),
+    );
+  }
+}
+
+class _ProductDetailPageBody extends StatefulWidget {
+  final Product product;
+
+  _ProductDetailPageBody({required this.product});
+
+  @override
+  State<_ProductDetailPageBody> createState() => _ProductDetailPageBodyState();
+}
+
+class _ProductDetailPageBodyState extends State<_ProductDetailPageBody> {
+  int? selectedSize;
+
+  @override
+  Widget build(BuildContext context) {
+    final Product product = widget.product;
     return BlocProvider(
-      create: (_) => sl<ProductBloc>(),
+      create: (_) =>
+          sl<ProductBloc>()..add(DeleteProductEvent(productId: product.id)),
       child: Column(
         children: [
           Stack(children: [
             AspectRatio(
               aspectRatio: 16 / 12,
-              child: Image.asset(
+              child: Image.network(
                 product.imageUrl,
                 fit: BoxFit.fill,
               ),
             ),
             Container(
-              margin: const EdgeInsets.all(10),
-              padding: const EdgeInsets.all(5),
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 40),
+              padding: const EdgeInsets.all(1),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
                 color: Colors.white,
               ),
-              child: Positioned(
-                top: 40,
-                left: 10,
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(Icons.arrow_back_ios_new),
-                ),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back_ios_new),
               ),
             ),
           ]),
@@ -67,7 +76,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             height: 10,
           ),
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
             child: Column(
               children: [
                 const Row(
@@ -136,7 +145,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         },
                         child: SizeContainer(
                             size: sz, isSelected: selectedSize == sz),
-                      )
+                      ),
                   ]),
                 ),
                 const SizedBox(
@@ -157,12 +166,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        for (Product pro in Products) {
-                          if (product.name == pro.name) {
-                            products.remove(product);
-                            break;
-                          }
-                        }
+                        BlocProvider.of<ProductBloc>(context)
+                            .add(DeleteProductEvent(productId: product.id));
+
                         Navigator.pushNamed(context, '/homepage');
                       },
                       style: ButtonStyle(
@@ -184,7 +190,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         Navigator.pushNamed(context, '/add_product_page',
                             arguments: {
                               'product': product,
-                              'products': products,
                             });
                       },
                       style: ButtonStyle(

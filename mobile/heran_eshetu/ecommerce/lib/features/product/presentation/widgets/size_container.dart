@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class SizeContainer extends StatefulWidget {
   final int size;
   final bool isSelected;
-  const SizeContainer({super.key, required this.size, required this.isSelected});
+  const SizeContainer(
+      {super.key, required this.size, required this.isSelected});
 
   @override
   State<SizeContainer> createState() => _SizeContainerState();
@@ -20,6 +21,14 @@ class _SizeContainerState extends State<SizeContainer> {
         color: widget.isSelected
             ? const Color.fromARGB(255, 45, 69, 206)
             : const Color.fromARGB(255, 255, 252, 252),
+        boxShadow: [
+          BoxShadow(
+            color: const Color.fromARGB(255, 213, 210, 210).withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 7,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Text(
         widget.size.toString(),

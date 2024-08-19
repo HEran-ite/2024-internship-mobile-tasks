@@ -19,7 +19,7 @@ class ProductModel extends Product {
     return ProductModel(
       id: json['id'],
       name: json['name'],
-      price: json['price'],
+      price: json['price'].toDouble(),
       description: json['description'],
       imageUrl: json['imageUrl'],
     );

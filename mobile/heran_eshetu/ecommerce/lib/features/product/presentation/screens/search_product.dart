@@ -1,11 +1,14 @@
+import 'package:ecommerce/features/product/presentation/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../injection_container.dart';
 import '../bloc/product_bloc.dart';
+
+import '../bloc/product_event.dart';
 import '../bloc/product_state.dart';
 import '../widgets/app_bar.dart';
-import '../widgets/loading.dart';
+
 import '../widgets/message_display.dart';
 import '../widgets/product_cards.dart';
 import '../widgets/text_field.dart';
@@ -34,7 +37,7 @@ class _SearchPageState extends State<SearchPage> {
 
   BlocProvider<ProductBloc> buildBody(BuildContext context) {
     return BlocProvider(
-      create: (_) => sl<ProductBloc>(),
+      create: (_) => sl<ProductBloc>()..add(GetAllProductEvent()),
       child: Container(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -81,26 +84,25 @@ class _SearchPageState extends State<SearchPage> {
             ),
             Expanded(
               child: Stack(children: [
-                BlocProvider<ProductBloc>(
-                  create: (_) => sl<ProductBloc>(),
-                  child: BlocBuilder<ProductBloc, ProductState>(
-                    builder: (context, state) {
-                      if (state is ProductStateLoading) {
-                        return const LoadingWidget();
-                      } else if (state is AllProductsLoaded) {
-                        return ListView.builder(
+                BlocBuilder<ProductBloc, ProductState>(
+                  builder: (context, state) {
+                    if (state is ProductStateLoading) {
+                      return const LoadingWidget();
+                    } else if (state is AllProductsLoaded) {
+                      return Expanded(
+                        child: ListView.builder(
                           itemCount: state.products.length,
                           itemBuilder: (context, index) {
                             return ProductCard(product: state.products[index]);
                           },
-                        );
-                      } else if (state is AllProductsLoadedFailure) {
-                        return MessageDisplay(message: state.message);
-                      } else {
-                        return const MessageDisplay(message: 'Unknown state');
-                      }
-                    },
-                  ),
+                        ),
+                      );
+                    } else if (state is AllProductsLoadedFailure) {
+                      return MessageDisplay(message: state.message);
+                    } else {
+                      return const MessageDisplay(message: 'Unknown state');
+                    }
+                  },
                 ),
                 if (isFilter)
                   Expanded(
@@ -108,7 +110,7 @@ class _SearchPageState extends State<SearchPage> {
                       bottom: 0,
                       left: 0,
                       right: 0,
-                      top: 450,
+                      top: 280,
                       child: Container(
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         color: Colors.white,

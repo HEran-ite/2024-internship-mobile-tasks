@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../core/utils/dummy_data/products_data.dart';
 import '../../domain/entitity/product.dart';
 
 class ProductCard extends StatelessWidget {
@@ -11,14 +10,6 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: _buildCards(context),
-    );
-  }
-}
-
-List<Card> _buildCards(BuildContext context) {
-  return Products.map((product) {
     return Card(
       shadowColor: Colors.black,
       elevation: 5,
@@ -29,7 +20,6 @@ List<Card> _buildCards(BuildContext context) {
             '/product_detail_page',
             arguments: {
               'product': product,
-              'products': Products,
             },
           );
         },
@@ -40,7 +30,7 @@ List<Card> _buildCards(BuildContext context) {
                   topLeft: Radius.circular(10), topRight: Radius.circular(10)),
               child: AspectRatio(
                 aspectRatio: 16 / 9,
-                child: Image.asset(
+                child: Image.network(
                   product.imageUrl,
                   fit: BoxFit.fill,
                 ),
@@ -94,5 +84,5 @@ List<Card> _buildCards(BuildContext context) {
         ),
       ),
     );
-  }).toList();
+  }
 }
