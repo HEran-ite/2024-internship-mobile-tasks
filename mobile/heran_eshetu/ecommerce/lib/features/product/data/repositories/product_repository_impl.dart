@@ -39,7 +39,6 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  @override
   Future<Either<Failure, Product>> insertProduct(Product product) async {
     if (await networkInfo.isConnected) {
       try {

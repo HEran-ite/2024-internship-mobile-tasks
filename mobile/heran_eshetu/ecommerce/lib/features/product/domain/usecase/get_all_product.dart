@@ -3,6 +3,7 @@ import '../../../../core/error/failures.dart';
 import '../entitity/product.dart';
 import '../repositories/product_repository.dart';
 import '../../../../core/base_usecase.dart';
+
 class NoParams {}
 
 class GetAllProductUsecase extends UseCase<List<Product>, NoParams> {

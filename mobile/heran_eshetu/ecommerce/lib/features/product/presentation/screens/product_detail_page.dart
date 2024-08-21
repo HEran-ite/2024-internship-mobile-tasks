@@ -165,9 +165,9 @@ class _ProductDetailPageBodyState extends State<_ProductDetailPageBody> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      onPressed: () {
-                        BlocProvider.of<ProductBloc>(context)
-                            .add(DeleteProductEvent(productId: product.id));
+                      onPressed: () async {
+                        BlocProvider.of<ProductBloc>(context).add(
+                            await DeleteProductEvent(productId: product.id));
 
                         Navigator.pushNamed(context, '/homepage');
                       },

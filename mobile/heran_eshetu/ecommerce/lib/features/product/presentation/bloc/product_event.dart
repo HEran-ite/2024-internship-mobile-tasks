@@ -20,6 +20,7 @@ class GetAllProductEvent extends ProductEvent {}
 
 class InsertProductEvent extends ProductEvent {
   final Product product;
+
   InsertProductEvent({required this.product});
 
   @override

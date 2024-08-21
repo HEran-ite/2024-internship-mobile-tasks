@@ -22,6 +22,7 @@ class ProductCard extends StatelessWidget {
               'product': product,
             },
           );
+          
         },
         child: Column(
           children: [

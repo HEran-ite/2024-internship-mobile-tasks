@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import '../../../../core/constants/constants.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../domain/entitity/product.dart';
 import '../model/product_model.dart';
+import 'package:http_parser/http_parser.dart';
 
 abstract class ProductRemoteDataSource {
   Future<Product> getProduct(String id);
@@ -60,13 +62,28 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
 
   @override
   Future<Product> insertProduct(Product product) async {
-    final response = await client.post(
-      Uri.parse(Urls.getProductById(product.id)),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode(product),
-    );
+    var request =
+        http.MultipartRequest('POST', Uri.parse(Urls.getAllProducts()));
+
+    // Add text fields
+    request.fields['name'] = product.name;
+    request.fields['price'] = product.price.toString();
+    request.fields['description'] = product.description;
+
+    // Add image file if available
+    if (product.imageUrl.isNotEmpty && File(product.imageUrl).existsSync()) {
+      request.files.add(await http.MultipartFile.fromPath(
+        'image',
+        product.imageUrl,
+        contentType: MediaType('image', 'jpeg'),
+      ));
+    }
+
+    // Send the request
+    var response = await request.send();
     if (response.statusCode == 201) {
-      return ProductModel.fromJson(json.decode(response.body));
+      var responseBody = await response.stream.bytesToString();
+      return ProductModel.fromJson(json.decode(responseBody)['data']);
     } else {
       throw ServerException();
     }
@@ -77,10 +94,10 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     final response = await client.put(
       Uri.parse(Urls.getProductById(product.id)),
       headers: {'Content-Type': 'application/json'},
-      body: json.encode(product),
+      body: json.encode(ProductModel.fromProduct(product).toJson()),
     );
     if (response.statusCode == 200) {
-      return ProductModel.fromJson(json.decode(response.body));
+      return ProductModel.fromJson(json.decode(response.body)['data']);
     } else {
       throw ServerException();
     }
