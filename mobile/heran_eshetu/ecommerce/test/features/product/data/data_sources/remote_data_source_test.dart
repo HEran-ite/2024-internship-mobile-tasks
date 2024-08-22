@@ -22,13 +22,12 @@ void main() {
   });
   const String testId = '1';
   ProductModel testProduct = const ProductModel(
-      id: '1',
-      name: 'name',
-      description: 'description',
-      price: 1.0,
-      imageUrl: 'imageUrl',
+    id: '1',
+    name: 'name',
+    description: 'description',
+    price: 1.0,
+    imageUrl: 'imageUrl',
   );
-
 
   group('get current product', () {
     test('should return the product model when the response code is 200',
@@ -85,7 +84,7 @@ void main() {
         () async {
       //arrange
       when(mockHttpClient.post(
-        Uri.parse(Urls.getProductById(testId)),
+        Uri.parse(Urls.getAllProducts()),
         headers: anyNamed('headers'),
         body: anyNamed('body'),
       )).thenAnswer((_) async =>
@@ -119,9 +118,9 @@ void main() {
       when(mockHttpClient.put(
         Uri.parse(Urls.getProductById(testProduct.id)),
         headers: {'Content-Type': 'application/json'},
-        body: json.encode(testProduct.toJson()),
-      )).thenAnswer((_) async =>
-          http.Response(readJson('dummy_product_response.json'), 200));
+        body: json.encode(ProductModel.fromProduct(testProduct).toJson()),
+      )).thenAnswer((_) async => http.Response(
+          '{"data": ${readJson('dummy_product_response.json')}}', 200));
       //act
       final result =
           await productRemoteDataSourceImpl.updateProduct(testProduct);
@@ -150,8 +149,8 @@ void main() {
       //arrange
       when(mockHttpClient.get(
         Uri.parse(Urls.getAllProducts()),
-      )).thenAnswer((_) async =>
-          http.Response(readJson('dummy_products_response.json'), 200));
+      )).thenAnswer((_) async => http.Response(
+          '{"data": ${readJson('dummy_products_response.json')}}', 200));
       //act
       final result = await productRemoteDataSourceImpl.getAllProduct();
       //assert

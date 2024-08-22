@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc_observer.dart';
+import 'features/auth/presentation/screens/signin_page.dart';
+import 'features/auth/presentation/screens/signup_page.dart';
+import 'features/auth/presentation/screens/splash_screen.dart';
 import 'features/product/presentation/bloc/product_bloc.dart';
 import 'features/product/presentation/screens/add_product_page.dart';
 import 'features/product/presentation/screens/homepage.dart';
@@ -48,8 +51,11 @@ class MyApp extends StatelessWidget {
             labelSmall: TextStyle(fontFamily: 'Poppins'),
           ),
         ),
-        home: const HomePage(),
+        home: const SplashScreen(),
         routes: {
+          '/splash_page': (context) => const SplashScreen(),
+          '/signin_page': (context) => SigninPage(),
+          '/signup_page': (context) => SignupPage(),
           '/product_detail_page': (context) => const ProductDetailPage(),
           '/add_product_page': (context) => const AddProductPage(),
           '/homepage': (context) => const HomePage(),

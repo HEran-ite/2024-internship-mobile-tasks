@@ -34,15 +34,13 @@ flutter:
   uses-material-design: true
 
   assets:
-    - images/profile.png
-    - images/dress.jpg
-    - images/t-shirt.jpg
-    - images/mini-skirt.jpg
-    - images/nike.jpg
-    - images/top.jpg
-    - images/jacket.jpg
+    - assets/images/nike.jpg
+    - assets/images/splash.jpg
 
   fonts:
+    - family: Caveat Brush
+      fonts:
+        - asset: fonts/CaveatBrush-Regular.ttf
     - family: Poppins
       fonts:
         - asset: assets/fonts/poppins/Poppins-Regular.ttf
