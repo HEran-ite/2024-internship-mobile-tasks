@@ -2,11 +2,12 @@ import 'package:ecommerce/features/product/presentation/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../injection_container.dart';
-import '../bloc/product_bloc.dart';
 
-import '../bloc/product_event.dart';
-import '../bloc/product_state.dart';
+import '../../../../core/injection/injection.dart';
+import '../bloc/product_bloc/product_bloc.dart';
+
+import '../bloc/product_bloc/product_event.dart';
+import '../bloc/product_bloc/product_state.dart';
 import '../widgets/app_bar.dart';
 
 import '../widgets/message_display.dart';

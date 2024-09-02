@@ -1,13 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/common_widget/circular_indicator.dart';
+import '../../../../core/common_widget/snack_bar.dart';
 import '../../../product/presentation/widgets/text_field.dart';
+import '../../data/models/auth_model.dart';
+import '../bloc/auth_bloc.dart';
 
 class SigninPage extends StatelessWidget {
   SigninPage({super.key});
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  void _logIn(BuildContext context) async {
+    final newUser = LogInModel(
+        id: '', email: emailController.text, password: passwordController.text);
+
+    context.read<AuthBloc>().add(LogInEvent(logInEntity: newUser));
+  }
+
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+        body: BlocConsumer<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is AuthSuccessState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            snackBar('User logged in successfully'),
+          );
+          Navigator.pushReplacementNamed(
+            context,
+            '/homepage',
+            arguments: {'user': state.user},
+          );
+        } else if (state is AuthErrorState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            errorsnackBar('Log in failed, try again'),
+          );
+        }
+      },
+      builder: (context, state) {
+        if (state is AuthLoadingState) {
+          return const CircularIndicator();
+        } else {
+          return _build(context); // The login form
+        }
+      },
+    ));
+  }
+
+  Widget _build(BuildContext context) {
     return Scaffold(
       body: Center(
           child: Column(
@@ -66,7 +108,9 @@ class SigninPage extends StatelessWidget {
                 ],
               )),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              _logIn(context);
+            },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(
                 const Color.fromARGB(255, 38, 80, 232),

@@ -4,6 +4,7 @@ import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/platform/network_info.dart';
 import '../../domain/entitity/product.dart';
+import '../../domain/entitity/user.dart';
 import '../../domain/repositories/product_repository.dart';
 import '../datasources/local_data_resource.dart';
 import '../datasources/remote_data_source.dart';
@@ -87,6 +88,26 @@ class ProductRepositoryImpl implements ProductRepository {
     if (await networkInfo.isConnected) {
       try {
         final result = await remoteDataSource.getAllProduct();
+        localDataSource.cacheProducts(result);
+        return Right(result);
+      } on ServerException {
+        return Left(ServerFailure('Server failure'));
+      }
+    } else {
+      try {
+        final localResult = await localDataSource.getLastProducts();
+        return Right(localResult);
+      } on CacheException {
+        return Left(CacheFailure('Cache failure'));
+      }
+    }
+  }
+
+  @override
+  Future<Either<Failure, User>> getMe(String token) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final result = await remoteDataSource.getMe(token);
         return Right(result);
       } on ServerException {
         return Left(ServerFailure('Server failure'));

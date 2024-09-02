@@ -1,5 +1,5 @@
 import 'package:ecommerce/features/product/domain/entitity/product.dart';
-import 'package:ecommerce/features/product/presentation/bloc/product_bloc.dart';
+import 'package:ecommerce/features/product/presentation/bloc/product_bloc/product_bloc.dart';
 import 'package:ecommerce/features/product/presentation/bloc/product_state.dart';
 import 'package:ecommerce/features/product/presentation/screens/homepage.dart';
 import 'package:ecommerce/features/product/presentation/screens/product_detail_page.dart';

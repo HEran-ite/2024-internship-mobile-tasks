@@ -4,16 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../injection_container.dart';
 import '../../domain/entitity/product.dart';
-import '../bloc/product_bloc.dart';
-import '../bloc/product_event.dart';
-import '../bloc/product_state.dart';
+import '../../domain/entitity/user.dart';
+import '../bloc/product_bloc/product_bloc.dart';
+import '../bloc/product_bloc/product_event.dart';
+
 import '../widgets/app_bar.dart';
 import '../widgets/text_field.dart';
 
 class AddProductPage extends StatefulWidget {
-  const AddProductPage({super.key});
+  final User user;
+  const AddProductPage({super.key, required this.user});
 
   @override
   State<AddProductPage> createState() => _AddProductPageState();
@@ -146,6 +147,7 @@ class _AddProductPageState extends State<AddProductPage> {
                     price: double.parse(priceController.text),
                     description: descriptionController.text,
                     imageUrl: filePath ?? imageUrl ?? '',
+                    seller: product?.seller ?? widget.user,
                   );
 
                   if (product == null) {

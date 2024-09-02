@@ -38,12 +38,12 @@ class _ChatListPageState extends State<ChatListPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Column(
+                        Column(
                           children: [
                             Stack(
                               children: [
                                 StoryAvatar(),
-                                Positioned(
+                                const Positioned(
                                   left: 50,
                                   top: 50,
                                   child: Icon(
@@ -53,7 +53,7 @@ class _ChatListPageState extends State<ChatListPage> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                           ],
                         ),
                         const SizedBox(width: 20),
@@ -65,7 +65,7 @@ class _ChatListPageState extends State<ChatListPage> {
                             shrinkWrap: true,
                             physics: const ClampingScrollPhysics(),
                             itemBuilder: (BuildContext context, int index) {
-                              return const Row(
+                              return Row(
                                 children: [
                                   StoryAvatar(),
                                   SizedBox(width: 20),

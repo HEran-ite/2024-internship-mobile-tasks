@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import '../../../../core/error/failures.dart';
 import '../entitity/product.dart';
+import '../entitity/user.dart';
 
 abstract class ProductRepository {
   Future<Either<Failure, Product>> getProduct(String id);
@@ -8,4 +9,5 @@ abstract class ProductRepository {
   Future<Either<Failure, Product>> insertProduct(Product product);
   Future<Either<Failure, Product>> updateProduct(Product product);
   Future<Either<Failure, Product>> deleteProduct(String id);
+  Future<Either<Failure, User>> getMe(String token);
 }

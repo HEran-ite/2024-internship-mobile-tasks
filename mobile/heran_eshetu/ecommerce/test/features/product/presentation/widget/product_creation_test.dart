@@ -1,6 +1,6 @@
 import 'package:ecommerce/features/product/domain/entitity/product.dart';
-import 'package:ecommerce/features/product/presentation/bloc/product_bloc.dart';
-import 'package:ecommerce/features/product/presentation/bloc/product_event.dart';
+import 'package:ecommerce/features/product/presentation/bloc/product_bloc/product_bloc.dart';
+import 'package:ecommerce/features/product/presentation/bloc/product_bloc/product_event.dart';
 import 'package:ecommerce/features/product/presentation/bloc/product_state.dart';
 import 'package:ecommerce/features/product/presentation/screens/add_product_page.dart';
 import 'package:ecommerce/injection_container.dart' as di;

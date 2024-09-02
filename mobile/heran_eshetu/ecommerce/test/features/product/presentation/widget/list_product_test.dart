@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:ecommerce/features/product/domain/entitity/product.dart';
-import 'package:ecommerce/features/product/presentation/bloc/product_bloc.dart';
+import 'package:ecommerce/features/product/presentation/bloc/product_bloc/product_bloc.dart';
 import 'package:ecommerce/features/product/presentation/bloc/product_state.dart';
 import 'package:ecommerce/features/product/presentation/screens/homepage.dart';
 import 'package:flutter/material.dart';

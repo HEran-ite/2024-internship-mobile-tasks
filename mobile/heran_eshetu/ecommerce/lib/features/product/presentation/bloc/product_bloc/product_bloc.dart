@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
-import '../../domain/usecase/delete_product.dart';
-import '../../domain/usecase/get_all_product.dart';
-import '../../domain/usecase/get_product.dart';
-import '../../domain/usecase/insert_product.dart';
-import '../../domain/usecase/update_product.dart';
+import '../../../domain/usecase/delete_product.dart';
+import '../../../domain/usecase/get_all_product.dart';
+import '../../../domain/usecase/get_product.dart';
+import '../../../domain/usecase/insert_product.dart';
+import '../../../domain/usecase/update_product.dart';
 import 'product_event.dart';
 import 'product_state.dart';
 

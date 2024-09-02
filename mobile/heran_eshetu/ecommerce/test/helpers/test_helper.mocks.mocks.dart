@@ -29,11 +29,11 @@ import 'package:ecommerce/features/product/domain/usecase/insert_product.dart'
     as _i10;
 import 'package:ecommerce/features/product/domain/usecase/update_product.dart'
     as _i8;
-import 'package:ecommerce/features/product/presentation/bloc/product_bloc.dart'
+import 'package:ecommerce/features/product/presentation/bloc/product_bloc/product_bloc.dart'
     as _i20;
-import 'package:ecommerce/features/product/presentation/bloc/product_event.dart'
+import 'package:ecommerce/features/product/presentation/bloc/product_bloc/product_event.dart'
     as _i21;
-import 'package:ecommerce/features/product/presentation/bloc/product_state.dart'
+import 'package:ecommerce/features/product/presentation/bloc/product_bloc/product_state.dart'
     as _i11;
 import 'package:flutter_bloc/flutter_bloc.dart' as _i22;
 import 'package:http/http.dart' as _i12;
